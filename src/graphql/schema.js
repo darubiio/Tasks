@@ -3,10 +3,10 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 
 type Query {
-    pendiente: [Tarea!]
-    completada: [Tarea!]
-    importante: [Tarea!]
-    midia: [Tarea!]
+  pendiente: [Tarea!]
+  completada: [Tarea!]
+  importante: [Tarea!]
+  midia: [Tarea!]
 }
 
 type Paso {
@@ -20,8 +20,9 @@ type Tarea {
   nombre: String!
   estado: Boolean
   importante: Boolean
-  midia: Boolean
   fecha: String
+  fechaVencimiento: String
+  midia: Boolean
   nota: String
   pasos: [Paso!]
 }
@@ -31,13 +32,8 @@ type Mutation {
   # TAREA
 
   crearTarea( 
-    nombre: String!,
-    estado: Boolean = false,
-    importante: Boolean = false,
-    midia: Boolean = false,
-    nota: String = "",
-    fecha: String!,
-    pasos: [String] = []): Tarea
+    nombre: String!
+  ): Tarea
 
 actualizarEstado( 
   _id: ID!, 
@@ -55,7 +51,7 @@ eliminarTarea(
   _id: ID! 
 ): Tarea
 
-agregarNota(
+actualizarNota(
   _id: ID!,
   nota: String!
 ): Tarea
