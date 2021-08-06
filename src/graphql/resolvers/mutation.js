@@ -1,8 +1,21 @@
-import Tarea from '../../database/model/model.js';
+import { Tarea, Lista } from '../../database/model/model.js';
 
 const Mutation = {
+
+    // MUTACIONES SOBRE LISTA
+
+    crearLista: async (_, {nombre}) => {
+        const newList = new Lista({nombre})
+        return await newList.save();
+    },
+
+    agregarTarea: async (_, {_idL, _idT}) => {
+        const tarea = Tarea.findById(_idT)
+        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": tarea}}, { new: true });
+    },
+
     
-    // MUTACIONES SOMBRE LA TAREA
+    // MUTACIONES SOBRE LA TAREA
 
     crearTarea: async (_, {nombre}) => {
         const newPost = new Tarea({nombre});
@@ -23,6 +36,10 @@ const Mutation = {
 
     actualizarNota: async (_, {_id, nota}) => {
         return Tarea.findByIdAndUpdate(_id, {nota}, {new: true});
+    },
+
+    actualizarFechaVencimiento: async (_id, fechaVencimiento) => {
+        return Tarea.findByIdAndUpdate(_id, {fechaVencimiento}, {new: true});
     },
     
     // MUTACIONES SOBRE PASOS DE LA TAREA

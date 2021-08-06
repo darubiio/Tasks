@@ -5,13 +5,20 @@ const tarea = new mongoose.Schema ({
     estado: { type: Boolean, require: false, default: false },
     importante: { type: Boolean, require: false, default: false },
     midia: { type: Boolean, require: false, default: false },
-    fecha: { type: Date, require: false, default: new Date() },
+    fecha: { type: Date, require: false, default: new Date()},
     fechaVencimiento: { type: Date, require: false },
     nota: { type: String, require: false, default: "" },
     pasos: [{
         paso: { type: String, require: false},
-        estado: { type: Boolean, require: false },
+        estado: { type: Boolean, require: false }
     }]
-})
+});
+export const Tarea = mongoose.model('Tarea', tarea);
 
-export default mongoose.model('Tarea', tarea);
+const lista = new mongoose.Schema ({
+    nombre: { type: String, require: false, default: "Nueva Lista" },
+    tareas: [ tarea ]
+});
+export const Lista = mongoose.model('Lista', lista);
+
+export default { Tarea, Lista }

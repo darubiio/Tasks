@@ -27,59 +27,81 @@ type Tarea {
   pasos: [Paso!]
 }
 
+type Lista {
+  _id: ID!
+  nombre: String!
+  tareas: [Tarea!]
+}
+
 type Mutation {
+
+  # LISTA
+
+  crearLista(
+    nombre: String!
+  ): Lista
+
+  agregarTarea(
+    idL: String,
+    idT: String!
+  ): Lista
 
   # TAREA
 
-  crearTarea( 
+  crearTarea(
     nombre: String!
   ): Tarea
 
-actualizarEstado( 
-  _id: ID!, 
-  estado: Boolean!,
-  importante: Boolean!,
-  midia: Boolean!,
-): Tarea
+  actualizarEstado( 
+    _id: ID!, 
+    estado: Boolean!,
+    importante: Boolean!,
+    midia: Boolean!,
+  ): Tarea
 
-actualizaNombre(
-  _id: ID,
-  nombre: String!
-): Tarea
+  actualizaNombre(
+    _id: ID,
+    nombre: String!
+  ): Tarea
 
-eliminarTarea(
-  _id: ID! 
-): Tarea
+  eliminarTarea(
+    _id: ID! 
+  ): Tarea
 
-actualizarNota(
-  _id: ID!,
-  nota: String!
-): Tarea
+  actualizarNota(
+    _id: ID!,
+    nota: String!
+  ): Tarea
 
-# PASO
+  actualizarFechaVencimiento(
+    _id: ID!,
+    fechaVencimiento: String!
+  ): Tarea
 
-agregarPaso(
-  _id: ID!,
-  paso: String!, 
-  estado: Boolean = false
-): Tarea
+  # PASO
 
-eliminarPaso(
-  _idT: ID!, 
-  _idP: ID!
-): Paso
+  agregarPaso(
+    _id: ID!,
+    paso: String!, 
+    estado: Boolean = false
+  ): Tarea
 
-actualizarNombrePaso(
-  _idT: ID,
-  _idP: ID,
-  nombre: String
-): Paso
+  eliminarPaso(
+    _idT: ID!, 
+    _idP: ID!
+  ): Paso
 
-actualizarEstadoPaso(
-  _idT: ID,
-  _idP: ID,
-  estado: Boolean
-): Paso
+  actualizarNombrePaso(
+    _idT: ID,
+    _idP: ID,
+    nombre: String
+  ): Paso
+
+  actualizarEstadoPaso(
+    _idT: ID,
+    _idP: ID,
+    estado: Boolean
+  ): Paso
 
 
 # agragarNota(): Tarea

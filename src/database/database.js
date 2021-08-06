@@ -4,5 +4,5 @@ mongoose.connect("mongodb+srv://darubio:openitsesame@clusterfree.p1k86.mongodb.n
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
-}).then(db => console.log('> 💿 MongoDB Conected'))
+}).then(db => console.log(`> 💿 MongoDB Conected`))
   .catch(err => console.console.log(err))
