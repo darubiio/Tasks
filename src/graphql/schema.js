@@ -26,7 +26,6 @@ type Tarea {
   midia: Boolean
   nota: String
   pasos: [Paso!]
-  # lista: [Lista]
 }
 
 type Lista {
@@ -35,13 +34,13 @@ type Lista {
   tareas: [Tarea!]
 }
 
-input pasosIn {
+input PasosIn {
   _id: ID!
   paso: String
   estado: Boolean
 }
 
-input tareaIn {
+input TareaIn {
   _id: ID!
   nombre: String!
   estado: Boolean
@@ -50,7 +49,7 @@ input tareaIn {
   fechaVencimiento: String
   midia: Boolean
   nota: String
-  pasos: [pasosIn]
+  pasos: [PasosIn]
 }
 
 type Mutation {
@@ -62,16 +61,15 @@ type Mutation {
   ): Lista
 
   agregarTarea(
-    idT: ID!,
-    listaName: String!,
     idL: ID!,
+    tarea: TareaIn
   ): Lista
 
   # TAREA
 
   crearTarea(
     nombre: String!
-  ): Tarea  
+  ): Tarea
 
   actualizarEstado( 
     _id: ID!, 

@@ -9,8 +9,8 @@ const Mutation = {
         return await newList.save();
     },
 
-    agregarTarea: async (_, {_idT, listaName, _idL}) => {
-        
+    agregarTarea: async (_, {_idL, tarea}) => {
+        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": { tarea }}}, { new: true });
     },
     
     // MUTACIONES SOBRE LA TAREA
