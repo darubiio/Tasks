@@ -1,7 +1,7 @@
-import Tarea from '../../database/model/model.js';
+import { Tarea, Lista } from '../../database/model/model.js';
 
 const Query = {
-    pendiente: async () => { 
+    pendiente: async () => {
         return await Tarea.find({estado: false});
     },
     completada: async () => {
@@ -12,6 +12,11 @@ const Query = {
     },
     midia: async () => {
         return await Tarea.find({midia: true});
+    },
+    listas: async () => {
+        return await Lista.find();
     }
 }
+
+
 export default Query;

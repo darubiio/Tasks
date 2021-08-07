@@ -7,6 +7,7 @@ type Query {
   completada: [Tarea!]
   importante: [Tarea!]
   midia: [Tarea!]
+  listas: [Lista!]
 }
 
 type Paso {
@@ -25,12 +26,31 @@ type Tarea {
   midia: Boolean
   nota: String
   pasos: [Paso!]
+  # lista: [Lista]
 }
 
 type Lista {
   _id: ID!
   nombre: String!
   tareas: [Tarea!]
+}
+
+input pasosIn {
+  _id: ID!
+  paso: String
+  estado: Boolean
+}
+
+input tareaIn {
+  _id: ID!
+  nombre: String!
+  estado: Boolean
+  importante: Boolean
+  fecha: String
+  fechaVencimiento: String
+  midia: Boolean
+  nota: String
+  pasos: [pasosIn]
 }
 
 type Mutation {
@@ -42,15 +62,16 @@ type Mutation {
   ): Lista
 
   agregarTarea(
-    idL: String,
-    idT: String!
+    idT: ID!,
+    listaName: String!,
+    idL: ID!,
   ): Lista
 
   # TAREA
 
   crearTarea(
     nombre: String!
-  ): Tarea
+  ): Tarea  
 
   actualizarEstado( 
     _id: ID!, 
