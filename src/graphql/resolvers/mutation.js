@@ -9,19 +9,28 @@ const Mutation = {
         return await newList.save();
     },
 
+    cambiarNombreLista: async (_, {_id, nombre}) => {
+        return await Lista.findByIdAndUpdate(_id, {nombre}, {new: true});
+    },
+
+    eliminarLista: async (_, {_id}) => {
+        return await Lista.findByIdAndDelete(_id);
+    },
+
     agregarTarea: async (_, {_idL, tarea}) => {
-        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": { tarea }}}, { new: true });
+        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": tarea }}, { new: true });
     },
     
     // MUTACIONES SOBRE LA TAREA
 
-    crearTarea: async (_, {nombre}) => {
-        const newPost = new Tarea({nombre});
-        return await newPost.save();
+    crearTarea: async (_, {_idL, nombre}) => {
+        const newTarea = new Tarea({nombre});
+        await newTarea.save();
+        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": newTarea }}, { new: true });
     },
 
-    eliminarTarea: async (_, {_id}) => {
-        return await Tarea.findByIdAndDelete(_id);
+    eliminarTarea: async (_, {_idL, _idT}) => {
+        return await Lista.findByIdAndUpdate(_idL, {$pull: { "tareas": {"_id": _idT}}});
     },
     
     actualizarEstado: async (_, {_id, estado, importante, midia}) => {

@@ -18,7 +18,7 @@ type Paso {
 
 type Tarea {
   _id: ID!
-  nombre: String!
+  nombre: String
   estado: Boolean
   importante: Boolean
   fecha: String
@@ -36,47 +36,51 @@ type Lista {
 
 input PasosIn {
   _id: ID!
-  paso: String
-  estado: Boolean
+  paso: String!
+  estado: Boolean!
 }
 
 input TareaIn {
   _id: ID!
   nombre: String!
-  estado: Boolean
-  importante: Boolean
-  fecha: String
+  estado: Boolean!
+  importante: Boolean!
+  fecha: String!
   fechaVencimiento: String
-  midia: Boolean
-  nota: String
-  pasos: [PasosIn]
+  midia: Boolean!
+  nota: String!
+  pasos: [PasosIn!]
 }
 
 type Mutation {
 
-  # LISTA
+  # LISTA 
 
   crearLista(
     nombre: String!
   ): Lista
 
+  cambiarNombreLista(
+    _id: ID!
+    nombre: String!
+  ): Lista
+
+  eliminarLista(
+    _id: ID!
+  ): Lista
+
+  # PENDIENTE CAMBIAR A MOVER TAREA ENTRE LISTAS
   agregarTarea(
-    idL: ID!,
+    _idL: ID!,
     tarea: TareaIn
   ): Lista
 
   # TAREA
 
   crearTarea(
+    _idL: ID!,
     nombre: String!
-  ): Tarea
-
-  actualizarEstado( 
-    _id: ID!, 
-    estado: Boolean!,
-    importante: Boolean!,
-    midia: Boolean!,
-  ): Tarea
+  ): Lista
 
   actualizaNombre(
     _id: ID,
@@ -84,8 +88,16 @@ type Mutation {
   ): Tarea
 
   eliminarTarea(
-    _id: ID! 
+    _idL: ID!,
+    _idT: ID!
   ): Tarea
+
+  actualizarEstado( 
+    _id: ID!,
+    estado: Boolean!,
+    importante: Boolean!,
+    midia: Boolean!,
+  ): Tarea  
 
   actualizarNota(
     _id: ID!,
