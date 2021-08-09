@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
-const tarea = new mongoose.Schema ({
+const tareaSchema = new Schema ({
     nombre: { type: String, require: true },
     estado: { type: Boolean, require: false, default: false },
     importante: { type: Boolean, require: false, default: false },
@@ -11,15 +12,15 @@ const tarea = new mongoose.Schema ({
     pasos: [{
         paso: { type: String, require: false },
         estado: { type: Boolean, require: false }
-    }],
-    listaName: { type: String , default: "Sin lista"}
+    }]
 });
-export const Tarea = mongoose.model('Tarea', tarea);
+export const Tarea = mongoose.model('Tarea', tareaSchema);
 
-const lista = new mongoose.Schema ({
+
+const listaSchema = new Schema ({
     nombre: { type: String, require: false, default: "Nueva Lista" },
-    tareas: [ tarea ]
+    tareas: {type: Schema.ObjectId, ref: "Tarea"}
 });
-export const Lista = mongoose.model('Lista', lista);
 
+export const Lista = mongoose.model('Lista', listaSchema);
 export default { Tarea, Lista };
