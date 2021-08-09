@@ -9,38 +9,46 @@ const Mutation = {
         return await newList.save();
     },
 
-    cambiarNombreLista: async (_, {_id, nombre}) => {
+    actualizaNombreLista: async (_, {_id, nombre}) => {
         return await Lista.findByIdAndUpdate(_id, {nombre}, {new: true});
     },
 
     eliminarLista: async (_, {_id}) => {
         return await Lista.findByIdAndDelete(_id);
     },
-
-    agregarTarea: async (_, {_idL, tarea}) => {
-        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": tarea }}, { new: true });
-    },
     
     // MUTACIONES SOBRE LA TAREA
 
-    crearTarea: async (_, {_idL, nombre}) => {
+    // Crea una nueva tarea sin lista asociada
+    crearTarea: async (_, {nombre}) => {
+        const newTarea = new Tarea({nombre});
+        return await newTarea.save();
+    },
+    // Crea una tarea dentro de una nueva lista
+    crearTareaEnLista: async (_, {_idL, nombre}) => {
         const newTarea = new Tarea({nombre});
         await newTarea.save();
-        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": newTarea }}, { new: true });
+        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": newTarea._id } }, {new: true});
     },
 
-    eliminarTarea: async (_, {_idL, _idT}) => {
-        return await Lista.findByIdAndUpdate(_idL, {$pull: { "tareas": {"_id": _idT}}});
+    cambiarTareaDeLista: async (_, {idL, idNewL, idT}) => {
+        const pull = await Lista.findByIdAndUpdate(idL, { $pull: { tareas: idT}});
+        pull.save();
+        return await Lista.findByIdAndUpdate(idNewL, { $push: { tareas: idT}});
+    },
+
+    actualizaNombreTarea: async (_, {_id, nombre}) => {
+        return Tarea.findByIdAndUpdate(_id, {nombre}, {new: true});
+    },
+
+    eliminarTarea: async (_, {_id}) => {
+        await Tarea.findByIdAndDelete(_id);
     },
     
     actualizarEstado: async (_, {_id, estado, importante, midia}) => {
         return await Tarea.findByIdAndUpdate(_id, {estado, importante, midia}, {new: true});
     },
-
-    actualizaNombre: async (_, {_id, nombre}) => {
-        return Tarea.findByIdAndUpdate(_id, {nombre}, {new: true});
-    },
-
+    
     actualizarNota: async (_, {_id, nota}) => {
         return Tarea.findByIdAndUpdate(_id, {nota}, {new: true});
     },

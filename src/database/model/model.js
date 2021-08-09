@@ -1,26 +1,30 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
+const listaSchema = new Schema ({
+    nombre: String,
+    tareas: [{
+        type: Schema.Types.ObjectId,
+        ref: "Tarea"
+    }],
+});
+
 const tareaSchema = new Schema ({
-    nombre: { type: String, require: true },
-    estado: { type: Boolean, require: false, default: false },
-    importante: { type: Boolean, require: false, default: false },
-    midia: { type: Boolean, require: false, default: false },
-    fecha: { type: Date, require: false, default: new Date()},
-    fechaVencimiento: { type: Date, require: false },
-    nota: { type: String, require: false, default: "" },
+    nombre: String,
+    estado: { type: Boolean, default: false },
+    importante: { type: Boolean, default: false },
+    midia: { type: Boolean, default: false },
+    fecha: { type: Date, default: new Date()},
+    fechaVencimiento: Date,
+    nota: { type: String, default: "" },
     pasos: [{
         paso: { type: String, require: false },
         estado: { type: Boolean, require: false }
-    }]
+    }],
+    lista: { type: Schema.Types.ObjectId, ref: "Lista" }
 });
+
 export const Tarea = mongoose.model('Tarea', tareaSchema);
-
-
-const listaSchema = new Schema ({
-    nombre: { type: String, require: false, default: "Nueva Lista" },
-    tareas: {type: Schema.ObjectId, ref: "Tarea"}
-});
-
 export const Lista = mongoose.model('Lista', listaSchema);
+
 export default { Tarea, Lista };
