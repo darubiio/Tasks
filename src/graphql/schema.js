@@ -5,7 +5,6 @@ const typeDefs = gql`
 type Query {
   tareas: [Tarea!]
   listas: [Lista!]
-  listaEnTarea(listaID: ID!): Lista
 }
 
 type Paso {
