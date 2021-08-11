@@ -3,8 +3,8 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 
 type Query {
-  tareas: [Tarea!]
-  listas: [Lista!]
+  tareasAll: [Tarea!]
+  listasAll: [Lista!]
 }
 
 type Paso {
