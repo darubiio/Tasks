@@ -1,18 +1,14 @@
 {
-  "name": "todopro",
+  "name": "to-do",
   "version": "1.0.0",
-  "description": "app to do pro",
+  "description": "to do app",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon src index.js"
   },
-  "keywords": [
-    "javascript",
-    "node",
-    "graphql"
-  ],
+  "keywords": ["javascript", "node", "apollographql", "mongodb"],
   "author": "Alejandro Rubio",
   "license": "ISC",
   "dependencies": {
