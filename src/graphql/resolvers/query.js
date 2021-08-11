@@ -6,6 +6,9 @@ const Query = {
     },
     listas: async () => {
         return await Lista.find().populate('tareas');
+    },
+    listaEnTarea: async (_, { listaID }) => {
+        console.log(listaID);
     }
 }
 

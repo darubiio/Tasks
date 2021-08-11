@@ -5,6 +5,7 @@ const typeDefs = gql`
 type Query {
   tareas: [Tarea!]
   listas: [Lista!]
+  listaEnTarea(listaID: ID!): Lista
 }
 
 type Paso {
@@ -72,6 +73,11 @@ type Mutation {
   crearTarea(
     _idL: ID!,
     nombre: String!
+  ): Lista
+
+  anadirALista(
+    _idT: ID!,
+    _idL: ID!
   ): Lista
 
   crearTareaEnLista(
