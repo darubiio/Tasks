@@ -1,5 +1,5 @@
 # Tasks
-Full task app ( MongoDB, Express, React, ApolloGraphQl )
+Full task app ( MongoDB, Express, React, ApolloGraphQL )
 * CRUD tasks and lists
 * Group tasks by list
 * Task due
