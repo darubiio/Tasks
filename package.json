@@ -8,7 +8,7 @@
     "test": "jest",
     "start": "nodemon src index.js"
   },
-  "keywords": ["javascript", "node", "express", "apollographql", "ApolloServer", "mongodb", "mongoose"],
+  "keywords": ["javascript", "node", "express", "apollographql", "apolloServer", "mongodb", "mongoose"],
   "author": "Alejandro Rubio",
   "license": "ISC",
   "dependencies": {
