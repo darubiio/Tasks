@@ -70,9 +70,8 @@ type Mutation {
   # TAREA TAREA TAREA 
 
   crearTarea(
-    _idL: ID!,
     nombre: String!
-  ): Lista
+  ): Tarea
 
   anadirALista(
     _idT: ID!,
