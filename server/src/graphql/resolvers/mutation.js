@@ -25,17 +25,17 @@ const Mutation = {
         const newTarea = new Tarea({nombre});
         return await newTarea.save();
     },
-    // Agregar una tarea a una lista
+    // Agregar una tarea desvinculada a una lista.
     anadirALista: async (_, {_idT, _idL}) => {
         return await Lista.findByIdAndUpdate(_idL, { push: { tareas: _idT}});
     },
-    // Crea una tarea dentro de una nueva lista
+    // Crea una tarea dentro de una nueva lista.
     crearTareaEnLista: async (_, {_idL, nombre}) => {
         const newTarea = new Tarea({nombre, "lista": _idL});
         await newTarea.save();
         return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": newTarea._id } }, {new: true});
     },
-    // Cambiar tarea entre listas
+    // Cambiar tarea entre listas.
     cambiarTareaDeLista: async (_, {idL, idNewL, idT}) => {
         const pullFl = await Lista.findByIdAndUpdate(idL, { $pull: { tareas: idT}});
         await Tarea.findByIdAndUpdate(idT, {"lista": idNewL});        
