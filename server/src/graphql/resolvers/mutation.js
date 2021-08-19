@@ -23,18 +23,19 @@ const Mutation = {
 
     // Crea una nueva tarea sin lista asociada.
     crearTarea: async (_, {nombre}) => {
-        const newTarea = new Tarea({nombre});
+        const newTarea = new Tarea({ nombre });
         return await newTarea.save();
     },
     // Agregar una tarea sin lista asociada a una lista.
-    anadirALista: async (_, {_idT, _idL}) => {
-        return await Lista.findByIdAndUpdate(_idL, { push: { tareas: _idT}});
+    anadirALista: async (_, { _idT, _idL }) => {
+        Tarea.findByIdAndUpdate(_idT, { "lista": _idL });
+        return await Lista.findByIdAndUpdate(_idL, { $push: { tareas: _idT}});
     },
     // Crea una tarea dentro de una lista.
     crearTareaEnLista: async (_, {_idL, nombre}) => {
         const newTarea = new Tarea({nombre, "lista": _idL});
         await newTarea.save();
-        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": newTarea._id } }, {new: true});
+        return await Lista.findByIdAndUpdate(_idL, { $push: { "tareas": newTarea._id } }, { new: true });
     },
     // Cambiar tarea entre listas.
     cambiarTareaDeLista: async (_, {idL, idNewL, idT}) => {
@@ -45,7 +46,7 @@ const Mutation = {
     },
 
     actualizaNombreTarea: async (_, {_id, nombre}) => {
-        return Tarea.findByIdAndUpdate(_id, {nombre}, {new: true});
+        return Tarea.findByIdAndUpdate(_id, { nombre }, { new: true });
     },
     
     eliminarTarea: async (_, { _id }) => {
@@ -53,7 +54,7 @@ const Mutation = {
     },
 
     actualizarEstado: async (_, {_id, estado, importante, midia}) => {
-        return await Tarea.findByIdAndUpdate(_id, {estado, importante, midia}, {new: true});
+        return await Tarea.findByIdAndUpdate(_id, { estado, importante, midia }, { new: true });
     },
 
     actualizarNota: async (_, {_id, nota}) => {
@@ -61,7 +62,7 @@ const Mutation = {
     },
     
     actualizarFechaVencimiento: async (_id, fechaVencimiento) => {
-        return Tarea.findByIdAndUpdate(_id, {fechaVencimiento}, {new: true});
+        return Tarea.findByIdAndUpdate(_id, { fechaVencimiento }, { new: true });
     },
     
     // MUTACIONES SOBRE PASOS DE LA TAREA
