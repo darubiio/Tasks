@@ -11,7 +11,7 @@ const Mutation = {
     },
 
     actualizaNombreLista: async (_, {_id, nombre}) => {
-        return await Lista.findByIdAndUpdate(_id, {nombre}, {new: true});
+        return await Lista.findByIdAndUpdate(_id, { nombre }, { new: true });
     },
     // Elimina lista & las tareas dentro de esta.
     eliminarLista: async (_, { _id }) => {
