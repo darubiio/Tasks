@@ -18,7 +18,7 @@ const taskSchema = new Schema ({
     dueDate: Date,
     note: { type: String, default: "" },
     steps: [{
-        step: { type: String, require: false },
+        name: { type: String, require: false },
         state: { type: Boolean, require: false }
     }],
     list: { type: Schema.Types.ObjectId, ref: "List" }

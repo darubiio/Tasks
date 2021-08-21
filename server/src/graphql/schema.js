@@ -3,13 +3,13 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 
 type Query {
-  tareasAll: [Task!]
-  listasAll: [List!]
+  tasks: [Task!]
+  lists: [List!]
 }
 
 type Step {
   _id: ID!
-  step: String
+  name: String
   state: Boolean
 }
 
@@ -32,119 +32,97 @@ type List {
   tasks: [Task!]
 }
 
-# input PasosIn {
-#   _id: ID!
-#   paso: String!
-#   estado: Boolean!
-# }
-
-# input TareaIn {
-#   _id: ID!
-#   nombre: String!
-#   estado: Boolean!
-#   importante: Boolean!
-#   fecha: String!
-#   fechaVencimiento: String
-#   midia: Boolean!
-#   nota: String!
-#   pasos: [PasosIn!]
-# }
-
 type Mutation {
 
   # LISTA  
 
-  crearLista(
-    nombre: String!
+  createList(
+    name: String!
   ): List
 
-  actualizaNombreLista(
+  updateListName(
     _id: ID!
-    nombre: String!
+    name: String!
   ): List
 
-  eliminarLista(
+  deleteList(
     _id: ID!
   ): List
 
   # TAREA TAREA TAREA 
 
-  crearTarea(
-    nombre: String!
+  createTask(
+    name: String!
   ): Task
 
-  anadirALista(
+  addToList(
     _idT: ID!,
     _idL: ID!
   ): List
 
-  crearTareaEnLista(
+  createTaskInList(
     _idL: ID!,
-    nombre: String!
+    name: String!
   ): Task
 
-  cambiarTareaDeLista(
+  changeListTask(
     idL: ID!,
     idNewL: ID!,
     idT: ID!,
   ): List
 
-  actualizaNombreTarea(
+  updateTaskName(
     _id: ID,
-    nombre: String!
+    name: String!
   ): Task
 
-  eliminarTarea(
+  deleteTask(
     _id: ID!,
   ): Task
 
-  actualizarEstado( 
+  updateTaskState( 
     _id: ID!,
-    estado: Boolean!,
-    importante: Boolean!,
-    midia: Boolean!,
+    state: Boolean!,
+    important: Boolean!,
+    myDay: Boolean!,
   ): Task  
 
-  actualizarNota(
+  updateNote(
     _id: ID!,
-    nota: String!
+    note: String!
   ): Task
 
-  actualizarFechaVencimiento(
+  updateDueDate(
     _id: ID!,
-    fechaVencimiento: String!
+    dueDate: String!
   ): Task
 
   # PASO
 
-  agregarPaso(
+  addStep(
     _id: ID!,
-    paso: String!, 
-    estado: Boolean = false
+    name: String!, 
+    state: Boolean = false
   ): Task
 
-  eliminarPaso(
+  deleteStep(
     _idT: ID!, 
-    _idP: ID!
+    _idS: ID!
   ): Step
 
-  actualizarNombrePaso(
+  updateStepName(
     _idT: ID,
-    _idP: ID,
-    nombre: String
+    _idS: ID,
+    name: String
   ): Step
 
-  actualizarEstadoPaso(
+  updateStepState(
     _idT: ID,
-    _idP: ID,
-    estado: Boolean
+    _idS: ID,
+    state: Boolean
   ): Step
 
-
-# agragarNota(): Tarea
-# agregarMiDia(): Tarea
 # fechaVencimiento(): Tarea
-    
 }
 `
 export default typeDefs;
