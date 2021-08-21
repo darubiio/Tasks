@@ -3,52 +3,52 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 
 type Query {
-  tareasAll: [Tarea!]
-  listasAll: [Lista!]
+  tareasAll: [Task!]
+  listasAll: [List!]
 }
 
-type Paso {
+type Step {
   _id: ID!
-  paso: String
-  estado: Boolean
+  step: String
+  state: Boolean
 }
 
-type Tarea {
+type Task {
   _id: ID!
-  nombre: String
-  estado: Boolean
-  importante: Boolean
-  fecha: String
-  fechaVencimiento: String
-  midia: Boolean
-  nota: String
-  pasos: [Paso!]
-  lista: Lista
+  name: String
+  state: Boolean
+  important: Boolean
+  date: String
+  dueDate: String
+  myDay: Boolean
+  note: String
+  steps: [Step!]
+  list: List
 }
 
-type Lista {
+type List {
   _id: ID!
-  nombre: String!
-  tareas: [Tarea!]
+  name: String!
+  tasks: [Task!]
 }
 
-input PasosIn {
-  _id: ID!
-  paso: String!
-  estado: Boolean!
-}
+# input PasosIn {
+#   _id: ID!
+#   paso: String!
+#   estado: Boolean!
+# }
 
-input TareaIn {
-  _id: ID!
-  nombre: String!
-  estado: Boolean!
-  importante: Boolean!
-  fecha: String!
-  fechaVencimiento: String
-  midia: Boolean!
-  nota: String!
-  pasos: [PasosIn!]
-}
+# input TareaIn {
+#   _id: ID!
+#   nombre: String!
+#   estado: Boolean!
+#   importante: Boolean!
+#   fecha: String!
+#   fechaVencimiento: String
+#   midia: Boolean!
+#   nota: String!
+#   pasos: [PasosIn!]
+# }
 
 type Mutation {
 
@@ -56,64 +56,64 @@ type Mutation {
 
   crearLista(
     nombre: String!
-  ): Lista
+  ): List
 
   actualizaNombreLista(
     _id: ID!
     nombre: String!
-  ): Lista
+  ): List
 
   eliminarLista(
     _id: ID!
-  ): Lista
+  ): List
 
   # TAREA TAREA TAREA 
 
   crearTarea(
     nombre: String!
-  ): Tarea
+  ): Task
 
   anadirALista(
     _idT: ID!,
     _idL: ID!
-  ): Lista
+  ): List
 
   crearTareaEnLista(
     _idL: ID!,
     nombre: String!
-  ): Tarea
+  ): Task
 
   cambiarTareaDeLista(
     idL: ID!,
     idNewL: ID!,
     idT: ID!,
-  ): Lista
+  ): List
 
   actualizaNombreTarea(
     _id: ID,
     nombre: String!
-  ): Tarea
+  ): Task
 
   eliminarTarea(
     _id: ID!,
-  ): Tarea
+  ): Task
 
   actualizarEstado( 
     _id: ID!,
     estado: Boolean!,
     importante: Boolean!,
     midia: Boolean!,
-  ): Tarea  
+  ): Task  
 
   actualizarNota(
     _id: ID!,
     nota: String!
-  ): Tarea
+  ): Task
 
   actualizarFechaVencimiento(
     _id: ID!,
     fechaVencimiento: String!
-  ): Tarea
+  ): Task
 
   # PASO
 
@@ -121,24 +121,24 @@ type Mutation {
     _id: ID!,
     paso: String!, 
     estado: Boolean = false
-  ): Tarea
+  ): Task
 
   eliminarPaso(
     _idT: ID!, 
     _idP: ID!
-  ): Paso
+  ): Step
 
   actualizarNombrePaso(
     _idT: ID,
     _idP: ID,
     nombre: String
-  ): Paso
+  ): Step
 
   actualizarEstadoPaso(
     _idT: ID,
     _idP: ID,
     estado: Boolean
-  ): Paso
+  ): Step
 
 
 # agragarNota(): Tarea
