@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
+import conf from './config.js';
 
-mongoose.connect("mongodb+srv://darubio:openitsesame@clusterfree.p1k86.mongodb.net/todolist?retryWrites=true&w=majority", {
+mongoose.connect(`mongodb+srv://${conf.DB.USER}:${conf.DB.PASSWORD}@${conf.DB.HOST}/${conf.DB.NAME}?retryWrites=true&w=majority`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
-}).then(db => console.log(`> 💿 MongoDB Conected`))
+}).then(dbs => console.log(`> 💿 MongoDB Conected`))
   .catch(err => console.console.log(err))

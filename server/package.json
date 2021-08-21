@@ -8,11 +8,20 @@
     "test": "jest",
     "start": "nodemon src index.js"
   },
-  "keywords": ["javascript", "node.js", "express", "apollographql", "apolloServer", "mongodb", "mongoose"],
+  "keywords": [
+    "javascript",
+    "node.js",
+    "express",
+    "apollographql",
+    "apolloServer",
+    "mongodb",
+    "mongoose"
+  ],
   "author": "Alejandro Rubio",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.0.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "graphql": "^15.5.1",
     "mongoose": "^5.13.2",
