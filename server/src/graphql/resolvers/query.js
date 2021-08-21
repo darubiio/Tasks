@@ -1,11 +1,11 @@
-import { Tarea, Lista } from '../../database/model/model.js';
+import { Task, List } from '../../database/model/model.js';
 
 const Query = {
     tareasAll: async () => {
-        return await Tarea.find().populate('lista');
+        return await Task.find().populate('List');
     },
     listasAll: async () => {
-        return await Lista.find().populate('tareas');
+        return await List.find().populate('Task');
     },
 }
 

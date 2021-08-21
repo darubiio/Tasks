@@ -1,4 +1,4 @@
-import { Tarea, Lista } from '../../database/model/model.js';
+import { Task, List } from '../../database/model/model.js';
 
 const Mutation = {
 
