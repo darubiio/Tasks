@@ -2,9 +2,8 @@ import { Task, List } from '../../database/model/model.js';
 
 const Mutation = {
 
-    // MUTACIONES SOBRE LISTA
+    // List Mutations
 
-    // Crear lista recibiendo un nombre
     createList: async (_, { name }) => {    
         const newList = new List({ name });
         return await newList.save();
@@ -12,31 +11,30 @@ const Mutation = {
     updateListName: async (_, {_id, name}) => {
         return await List.findByIdAndUpdate(_id, { name }, { new: true });
     },
-    // Elimina lista & las tareas dentro de esta.
+
     updateListName: async (_, { _id }) => {
         await Task.deleteMany({ "list": _id });
         return await List.findByIdAndDelete(_id);
     },
     
-    // MUTACIONES SOBRE LA TAREA
+    // Task Mutations
 
-    // Crea una nueva tarea sin lista asociada.
     createTask: async (_, { name }) => {
         const newTarea = new Tarea({ name });
         return await newTarea.save();
     },
-    // Agregar una tarea sin lista asociada a una lista.
+
     addToList: async (_, { _idT, _idL }) => {
         Task.findByIdAndUpdate(_idT, { "list": _idL });
         return await List.findByIdAndUpdate(_idL, { $push: { tasks: _idT}});
     },
-    // Crea una tarea dentro de una lista.
+
     createTaskInList: async (_, {_idL, name}) => {
         const newTarea = new Tarea({name, "list": _idL});
         await newTarea.save();
         return await List.findByIdAndUpdate(_idL, { $push: { "tasks": newTarea._id } }, { new: true });
     },
-    // Cambiar tarea entre listas.
+
     changeListTask: async (_, {idL, idNewL, idT}) => {
         const pullFl = await List.findByIdAndUpdate(idL, { $pull: { tasks: idT}});
         await Task.findByIdAndUpdate(idT, {"list": idNewL});
@@ -64,7 +62,7 @@ const Mutation = {
         return Task.findByIdAndUpdate(_id, { dueDate }, { new: true });
     },
     
-    // MUTACIONES SOBRE PASOS DE LA TAREA
+    // Steps Mutations
 
     addStep: async (_, { _id, name, state }) => {
         return await Task.findByIdAndUpdate(_id, { $push: { "steps": { name, state }}}, { new: true });
