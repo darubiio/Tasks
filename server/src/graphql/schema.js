@@ -49,7 +49,7 @@ type Mutation {
     _id: ID!
   ): List
 
-  # TAREA TAREA TAREA 
+  # TAREA
 
   createTask(
     name: String!
