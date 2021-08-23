@@ -5,4 +5,4 @@ import resolvers from './graphql/resolvers/index.js'
 export const server = new ApolloServer({
   typeDefs: typeDefs,
   resolvers: resolvers,
-})
+});
