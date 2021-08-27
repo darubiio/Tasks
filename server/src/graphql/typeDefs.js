@@ -5,6 +5,12 @@ const typeDefs = gql`
 type Query {
   tasks: [Task!]
   lists: [List!]
+  currentUser: User!
+}
+
+type User {
+  _id: ID!
+  username: String!
 }
 
 type Step {
@@ -34,7 +40,7 @@ type List {
 
 type Mutation {
 
-  # LISTA  
+  # List Mutations
 
   createList(
     name: String!
@@ -49,7 +55,7 @@ type Mutation {
     _id: ID!
   ): List
 
-  # TAREA
+  # Tasks mutations
 
   createTask(
     name: String!
@@ -97,7 +103,7 @@ type Mutation {
     dueDate: String!
   ): Task
 
-  # PASO
+  # Steps Mutations
 
   addStep(
     _id: ID!,
@@ -122,7 +128,23 @@ type Mutation {
     state: Boolean
   ): Step
 
-# fechaVencimiento(): Tarea
+    # User Mutations
+
+  register(
+    username: String!,
+    password: String!
+  ): User!
+
+  login(
+    username: String!,
+    password: String!
+  ): loginResponse!
 }
+
+  type loginResponse {
+    token: String
+    user: User
+  }
+
 `
 export default typeDefs;

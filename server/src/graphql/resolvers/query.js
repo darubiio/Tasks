@@ -1,12 +1,15 @@
-import { Task, List } from '../../database/model/model.js';
-
 const Query = {
-    tasks: async () => {
+    tasks: async (_, __, { Task }) => {
         return await Task.find().populate('list');
     },
-    lists: async () => {
+    lists: async (_, __, { List }) => {
         return await List.find().populate('tasks');
     },
+    currentUser: async (_, __, { user, User }) => {
+        if (!user) {
+            throw new Error('Not Authenticated')
+        }
+        return User.findById(user.id);
+    }
 }
-
 export default Query;
