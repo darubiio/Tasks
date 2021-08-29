@@ -37,7 +37,8 @@ const taskSchema = new Schema({
         },
         state: {
             type: Boolean,
-            require: false
+            require: true,
+            default: false
         }
     }],
     list: {

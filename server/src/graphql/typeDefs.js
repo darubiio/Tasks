@@ -30,6 +30,7 @@ type Task {
   note: String
   steps: [Step!]
   list: List
+  by: User!
 }
 
 type List {
@@ -106,9 +107,8 @@ type Mutation {
   # Steps Mutations
 
   addStep(
-    _id: ID!,
-    name: String!, 
-    state: Boolean = false
+    _idT: ID!,
+    name: String!,
   ): Task
 
   deleteStep(

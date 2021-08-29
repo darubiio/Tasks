@@ -1,7 +1,7 @@
 const stepsMutations = {
 
-    addStep: async (_, { _id, name, state }, { Task }) => {
-        return await Task.findByIdAndUpdate(_id, { $push: { "steps": { name, state }}}, { new: true });
+    addStep: async (_, { _idT, name, state }, { Task }) => {
+        return await Task.findByIdAndUpdate(_idT, { $push: { "steps": { name, state }}}, { new: true });
     },
 
     deleteStep: async (_, { _idT, _idS }, { Task }) => {

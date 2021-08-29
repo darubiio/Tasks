@@ -1,7 +1,7 @@
 const taskMutations = {
 
-    createTask: async (_, { name }, { Task }) => {
-        const newTarea = new Task({ name });
+    createTask: async (_, { name }, { Task, currentUser }) => {
+        const newTarea = new Task({ name, by: currentUser.id });
         return await newTarea.save();
     },
 
@@ -11,8 +11,8 @@ const taskMutations = {
         return await List.findByIdAndUpdate(_idL, { $push: { tasks: _idT}});
     },
 
-    createTaskInList: async (_, {_idL, name}, { Task, List }) => {
-        const newTarea = new Task({name, "list": _idL});
+    createTaskInList: async (_, {_idL, name}, { Task, List, currentUser }) => {
+        const newTarea = new Task({name, "list": _idL, by: currentUser.id});
         await newTarea.save();
         return await List.findByIdAndUpdate(_idL, { $push: { "tasks": newTarea._id } }, { new: true });
     },
