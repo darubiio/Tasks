@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server';
-import { getUser } from './util/verify.js';
+import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -17,7 +17,13 @@ export const server = new ApolloServer({
   context: ({ req }) => {
     const tokenBearer = req.headers.authorization || '';
     const token = tokenBearer.split(' ')[1];
-    const currentUser = getUser(token);
+    const currentUser = (token => {
+      try {
+        return token ? jwt.verify(token, process.env.SECRET) : null;
+      } catch (error) {
+        return null;
+      }
+    })(token);
     return { currentUser, List, Task, User };
   }
 });
