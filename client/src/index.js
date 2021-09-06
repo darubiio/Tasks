@@ -1,14 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
-import { App } from './component/App';
+import { App } from './App';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ChakraProvider } from "@chakra-ui/react";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+
+const client = new ApolloClient({
+  uri: 'http://localhost:5500/',
+  cache: new InMemoryCache()
+});
+
+render(
+  <ApolloProvider client={client}>
+    <ChakraProvider>
+      <App />
+    </ChakraProvider>
+  </ApolloProvider>,
   document.getElementById('root')
 );
