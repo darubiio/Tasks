@@ -1,4 +1,3 @@
-import { GridItem } from '@chakra-ui/layout';
 import React from 'react';
 import { Route, Switch } from 'react-router';
 
@@ -9,10 +8,12 @@ import { Planned } from './planned/plnd';
 import { Tasks } from './tasks/tks';
 import { MyDay } from './myDay/md';
 import { All } from './todo/all';
+import { GridItem } from '@chakra-ui/layout';
 
 export const TaskMain = () => {
+
   return (
-    <GridItem p={5} colSpan={['6']}>
+    <GridItem p={5} colSpan={5}>
       <Switch>
         <Route path='/all' component={All} />
         <Route path='/tasks' component={Tasks} />
