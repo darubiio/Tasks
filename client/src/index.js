@@ -6,6 +6,8 @@ import { App } from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
 
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 const client = new ApolloClient({
   uri: 'http://localhost:5500/',

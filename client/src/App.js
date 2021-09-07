@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Heading } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
+import { TaskMenu } from './components/task_menu/taskMenu';
 
 export const App = () => {
   return (
     <Container maxW="container.2xl">
-      <Heading as="h1" size="4xl" >Hello World</Heading>
+      <TaskMenu/>
     </Container>
   )
 };
