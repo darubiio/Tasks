@@ -9,9 +9,9 @@ import { Tasks } from './tasks/tks';
 import { MyDay } from './myDay/md';
 import { All } from './todo/all';
 import { GridItem } from '@chakra-ui/layout';
+import { Main } from './main';
 
 export const TaskMain = () => {
-
   return (
     <GridItem p={5} colSpan={5}>
       <Switch>
@@ -22,6 +22,7 @@ export const TaskMain = () => {
         <Route path='/asigned' component={Asigned} />
         <Route path='/completed' component={Completed} />
         <Route path='/important' component={Important} />
+        <Route path='/' component={Main} />
       </Switch>
     </GridItem>
   )

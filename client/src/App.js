@@ -6,7 +6,6 @@ import { TaskMain } from './components/task_main/taskMain';
 import { BrowserRouter as Router } from "react-router-dom";
 
 export const App = () => {
-
   return (
     <Container maxW="container.2xl">
       <Grid templateColumns="repeat(6, 1fr)" gap={12}>

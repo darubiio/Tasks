@@ -1,4 +1,3 @@
-import { Text } from '@chakra-ui/layout';
 import { Heading } from '@chakra-ui/react';
 import { ScaleFade } from '@chakra-ui/transition';
 import { BackBtn } from '../backbtn'
@@ -10,7 +9,7 @@ export const MyDay = () => {
     <ScaleFade initialScale={0.9} in>
       <BackBtn />
       <Heading size='lg' color='yellow.400'>Mi Día</Heading>
-      <Text fontSize='xs' >{DATE}</Text>
+      <Heading as="h6" size="xs">{DATE}</Heading>
     </ScaleFade>
   )
 };
