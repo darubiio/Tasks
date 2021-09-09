@@ -1,6 +1,5 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { useHistory, Redirect } from "react-router-dom";
 
 const CURRENT = gql`
   query Current {

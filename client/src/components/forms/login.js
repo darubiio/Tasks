@@ -3,8 +3,36 @@ import { Center, GridItem, Heading, Stack } from '@chakra-ui/layout';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Button } from '@chakra-ui/button';
 import { Route, Switch } from 'react-router';
+import { gql, useMutation } from '@apollo/client';
+import { useHistory } from "react-router-dom";
 
-export const Login = () => {
+const LOGIN = gql`
+  mutation LoginUser($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      token
+    }
+  }`
+
+export const Login = () => {  
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  let history = useHistory();
+  
+  const [logIn, { data, loading, error }] = useMutation(LOGIN);
+  const handleLogin = async () => {
+    await logIn({ variables: { username, password } });
+    console.log(data);
+    if (data) {
+      localStorage.setItem('token', data.login.token);
+      history.push("/");
+    }      
+    setUsername('');
+    setPassword('');
+
+    // redirect
+  };
+
   return (
     <Switch>
       <Route path='/login'>
@@ -17,9 +45,13 @@ export const Login = () => {
                   pointerEvents="none"
                   color="gray.300"
                   fontSize="1.2em"
-                  children={<i class="bi bi-person-fill" />}
+                  children={<i className="bi bi-person-fill" />}
                 />
-                <Input type="text" placeholder="usuario" />
+                <Input
+                  type="text"
+                  value={username}
+                  onChange={({ target }) => setUsername(target.value)}
+                  placeholder="usuario" />
               </InputGroup>
 
               <InputGroup>
@@ -27,12 +59,19 @@ export const Login = () => {
                   pointerEvents="none"
                   color="gray.300"
                   fontSize="1.2em"
-                  children={<i class="bi bi-key-fill" />}
+                  children={<i className="bi bi-key-fill" />}
                 />
-                <Input placeholder="contraseña" />
+                <Input
+                  type='password'
+                  value={password}
+                  onChange={({ target }) => setPassword(target.value)}
+                  placeholder="contraseña" />
               </InputGroup>
           
-              <Button colorScheme="teal" variant="outline">
+              <Button
+                colorScheme="teal"
+                onClick={handleLogin}
+                variant="outline">
                 Iniciar Sesion
               </Button>
 

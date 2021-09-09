@@ -13,12 +13,11 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  // const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
   return {
     headers: {
       ...headers,
-      authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjhiMzgxNGVhZWVlNzE1MDAyNGI5NiIsInVzZXJuYW1lIjoiZGFydWJpbyIsImlhdCI6MTYzMTE5NzU5NCwiZXhwIjoxNjMxMjAxMTk0fQ.rXd0weySQbtrIw614SAedJ635-zcu2Vcd-nr4FLMPZI`,
-      // authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : "",
     }
   }
 });
