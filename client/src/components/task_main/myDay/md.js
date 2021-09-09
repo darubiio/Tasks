@@ -1,7 +1,7 @@
-import { Heading } from '@chakra-ui/react';
+import React from 'react';
+import { Heading } from '@chakra-ui/layout';
 import { ScaleFade } from '@chakra-ui/transition';
 import { BackBtn } from '../backbtn'
-import React from 'react';
 
 export const MyDay = () => {
   const DATE = new Date().toDateString();
@@ -9,7 +9,7 @@ export const MyDay = () => {
     <ScaleFade initialScale={0.9} in>
       <BackBtn />
       <Heading size='lg' color='yellow.400'>Mi Día</Heading>
-      <Heading as="h6" size="xs">{DATE}</Heading>
+      <Heading as="h6" size="xs">{DATE}</Heading>      
     </ScaleFade>
   )
 };
