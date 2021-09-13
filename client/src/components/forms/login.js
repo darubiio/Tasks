@@ -28,12 +28,8 @@ export const Login = () => {
   }, [data]);
   
   const handleLogin = async (username, password) => {
-    try {
-      await logIn({ variables: { username, password } });
-      history.push('/');
-    } catch (error) {
-      console.log(error.message);
-    }    
+    await logIn({ variables: { username, password } });
+    history.push('/')
   };
 
   const { notAuthenticated } = React.useContext(UserContext);

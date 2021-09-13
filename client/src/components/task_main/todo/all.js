@@ -3,7 +3,7 @@ import { Task } from '../task';
 import { BackBtn } from '../backbtn';
 import { gql, useQuery } from '@apollo/client';
 import { ScaleFade } from '@chakra-ui/transition';
-import { Heading, Stack, Text } from '@chakra-ui/layout';
+import { GridItem, Heading, Stack, Text } from '@chakra-ui/layout';
 
 const ALL = gql`
  query LISTAS {
@@ -17,13 +17,10 @@ const ALL = gql`
   }
   }
 `
-
 export const All = () => {
   const { loading, error, data } = useQuery(ALL);
-  if (loading) return 'Loading...';
-  if (error) return `Error : ( ${error.message}`;
   
-  const TaskList = data.lists.map(list =>
+  const TaskList = data ? data.lists.map(list =>
     <>
       <Text mt={2} ml={2} fontSize='sm'>{list.name}</Text>
       <Stack >
@@ -32,13 +29,17 @@ export const All = () => {
         )}
       </Stack>
     </>
-  );
+  ) : '';
 
   return (
-    <ScaleFade initialScale={0.9} in>
-      <BackBtn />
-      <Heading size='lg' color='orange.500'>Todo</Heading>
-      {TaskList}
-    </ScaleFade>
+    loading ? '' :
+      error ? `Error : ( ${error.message}` :
+        <GridItem p={5} colSpan={5}>
+          <ScaleFade initialScale={0.9} in>
+            <BackBtn />
+            <Heading size='lg' color='orange.500'>Todo</Heading>
+            {TaskList}
+          </ScaleFade>
+        </GridItem>
   )
 };
