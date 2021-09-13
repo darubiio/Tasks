@@ -5,6 +5,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { UserContext } from '../../hooks/userContext';
 import { ScaleFade } from '@chakra-ui/transition';
 import { gql, useMutation } from '@apollo/client';
+import { CURRENT } from '../../hooks/userContext'
 import { FormControl } from "@chakra-ui/react";
 import { Button } from '@chakra-ui/button';
 
@@ -19,20 +20,17 @@ export const Login = () => {
   let psw;
   let user;
   let history = useHistory();
+  const { notAuthenticated } = React.useContext(UserContext);
   const [logIn, { data, loading, error }] = useMutation(LOGIN);
       
   React.useEffect(() => {
-    if (data) {
-      localStorage.setItem('token', data.login.token);
-    }
+    if (data) localStorage.setItem('token', data.login.token)
   }, [data]);
   
   const handleLogin = async (username, password) => {
-    await logIn({ variables: { username, password } });
-    history.push('/')
+    await logIn({ variables: { username, password }, refetchQueries: [{ query: CURRENT }] });
   };
 
-  const { notAuthenticated } = React.useContext(UserContext);
   return (
     !notAuthenticated ? <Redirect to='/' /> :
       <GridItem colSpan={6}>

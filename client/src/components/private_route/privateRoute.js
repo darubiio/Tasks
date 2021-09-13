@@ -3,12 +3,13 @@ import { Redirect, Route } from 'react-router'
 import { UserContext } from '../../hooks/userContext';
 
 export const PrivateRoute = ({ children, ...rest }) => {
-  const { notAuthenticated, loading } = React.useContext(UserContext);
+  const { notAuthenticated, loading, username } = React.useContext(UserContext);
+  console.log(username);
   return (
     <Route
       {...rest}
       render={() =>
-        loading ? null :
+        loading ? 'loading...' :
         notAuthenticated ?
           <Redirect to="/login" /> :
           children

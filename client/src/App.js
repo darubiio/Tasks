@@ -7,7 +7,7 @@ import { UserProvider } from './hooks/userContext';
 
 export const App = () => {
   return (
-    <Container maxW="container.2xl">      
+    <Container maxW="container.2xl">
       <UserProvider>
         <Grid templateColumns="repeat(6, 1fr)" gap={12}>
           <TaskMenu />
