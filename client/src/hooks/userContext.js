@@ -16,7 +16,7 @@ export const UserProvider = ({ children }) => {
   const current = (() => {
     return (
       loading ? { loading: 'Loading...' } :
-        error ? { error: error.message } :
+        error ? { notAuthenticated: error.message } :
           data.currentUser
     )
   })();

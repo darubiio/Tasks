@@ -1,10 +1,12 @@
 import React from 'react';
 import { Center, GridItem, Heading, Stack } from '@chakra-ui/layout';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
-import { Button } from '@chakra-ui/button';
-import { Route, Switch } from 'react-router';
 import { gql, useMutation } from '@apollo/client';
+import { FormControl } from "@chakra-ui/react";
+import { Button } from '@chakra-ui/button';
 import { useHistory } from "react-router-dom";
+import { Route, Switch } from 'react-router';
+import { ScaleFade } from '@chakra-ui/transition';
 
 const LOGIN = gql`
   mutation LoginUser($username: String!, $password: String!) {
@@ -13,71 +15,86 @@ const LOGIN = gql`
     }
   }`
 
-export const Login = () => {  
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  let history = useHistory();
+export const Login = () => {
   
-  const [logIn, { data, loading, error }] = useMutation(LOGIN);
-  const handleLogin = async () => {
-    await logIn({ variables: { username, password } });
-    console.log(data);
+  let history = useHistory();
+  let user;
+  let psw;
+  
+  // const [logIn, { data, loading, error }] = useMutation(LOGIN);
+  const [logIn, { data }] = useMutation(LOGIN);
+      
+  React.useEffect(() => {
     if (data) {
       localStorage.setItem('token', data.login.token);
-      history.push("/");
-    }      
-    setUsername('');
-    setPassword('');
-
-    // redirect
+    }
+  }, [data]);
+  
+  const handleLogin = async (username, password) => {
+    await logIn({ variables: { username, password } });
+    history.push('/');
   };
 
   return (
     <Switch>
       <Route path='/login'>
         <GridItem colSpan={6}>
-          <Center w="100%" h='100vh'>
-            <Stack shadow='2xl' rounded='2xl' p={8} spacing={4}>
-              <Heading mb={4}>Welcome Back</Heading>
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  color="gray.300"
-                  fontSize="1.2em"
-                  children={<i className="bi bi-person-fill" />}
-                />
-                <Input
-                  type="text"
-                  value={username}
-                  onChange={({ target }) => setUsername(target.value)}
-                  placeholder="usuario" />
-              </InputGroup>
+          <ScaleFade initialScale={0.9} in></ScaleFade>
+          <Center h='100vh'>
+            <Stack shadow='2xl' rounded='2xl' p={8}>
+              <FormControl
+                as='form'
+                onSubmit={e => {
+                  e.preventDefault()
+                  handleLogin(user.value, psw.value)
+                }}
+              >
+                <Heading mb={4}>Welcome Back</Heading>
+                <InputGroup mb={2}>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    color="gray.300"
+                    fontSize="1.2em"
+                    children={<i className="bi bi-person-fill" />}
+                  />
+                  <Input
+                    id='usrname'
+                    type="text"
+                    isRequired
+                    ref={node => {
+                      user = node;
+                    }}
+                    placeholder="usuario" />
+                </InputGroup>
 
-              <InputGroup>
-                <InputLeftElement
-                  pointerEvents="none"
-                  color="gray.300"
-                  fontSize="1.2em"
-                  children={<i className="bi bi-key-fill" />}
-                />
-                <Input
-                  type='password'
-                  value={password}
-                  onChange={({ target }) => setPassword(target.value)}
-                  placeholder="contraseña" />
-              </InputGroup>
-          
-              <Button
-                colorScheme="teal"
-                onClick={handleLogin}
-                variant="outline">
-                Iniciar Sesion
-              </Button>
-
-              <Button colorScheme="orange" variant="outline">
-                Registrarse
-              </Button>
+                <InputGroup mb={4}>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    color="gray.300"
+                    fontSize="1.2em"
+                    children={<i className="bi bi-key-fill" />}
+                  />
+                  <Input
+                    id='passw'
+                    type='password'
+                    isRequired
+                    ref={node => {
+                      psw = node;
+                    }}
+                    placeholder="contraseña" />
+                </InputGroup>
+                <Button
+                  loading={false}
+                  mr={2}
+                  type="submit"
+                  colorScheme="teal"
+                  variant="outline">
+                  Iniciar Sesion
+                </Button>
+                <Button colorScheme="orange" variant="outline">
+                  Registrarse
+                </Button>
+              </FormControl>
             </Stack>
           </Center>
         </GridItem>

@@ -1,10 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { App } from './App';
-
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 import { setContext } from '@apollo/client/link/context';
-
+import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -30,7 +29,9 @@ const client = new ApolloClient({
 render(
   <ApolloProvider client={client}>
     <ChakraProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ChakraProvider>
   </ApolloProvider>,
   document.getElementById('root')

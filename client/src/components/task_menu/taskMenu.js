@@ -40,10 +40,10 @@ export const TaskMenu = () => {
   const checkMode = () => {
     return location !== '/' ? ['none', 'revert'] : null;
   }
-
-  const { error, loading } = React.useContext(UserContext);
+  
+  const { notAuthenticated, loading } = React.useContext(UserContext);
   return (
-    error ? '' :
+    notAuthenticated ? null :
       loading ? '' :
         <GridItem display={checkMode} colSpan={['6', '1']} pt={5} pb={5}>
           <ScaleFade initialScale={0.9} in>
