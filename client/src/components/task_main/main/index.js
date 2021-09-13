@@ -1,14 +1,14 @@
-import { Box } from '@chakra-ui/layout';
-import { ScaleFade } from '@chakra-ui/transition';
-import { MyDay } from '../myDay/md'
 import React from 'react';
+import { MyDay } from '../myDay/md';
+import { ScaleFade } from '@chakra-ui/transition';
+import { GridItem } from '@chakra-ui/layout';
 
 export const Main = () => {
   return (
-    <Box display={['none', 'revert']} >
+    <GridItem display={['none', 'revert']} p={5} colSpan={5}>
       <ScaleFade initialScale={0.9} in>
         <MyDay />
       </ScaleFade>
-    </Box>    
+    </GridItem>
   )
 };
