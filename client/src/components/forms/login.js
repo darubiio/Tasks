@@ -19,17 +19,17 @@ const LOGIN = gql`
 export const Login = () => {
   let psw;
   let user;
-  let history = useHistory();
+  // let history = useHistory();
   const { notAuthenticated } = React.useContext(UserContext);
   const [logIn, { data, loading, error }] = useMutation(LOGIN);
-      
-  React.useEffect(() => {
-    if (data) localStorage.setItem('token', data.login.token)
-  }, [data]);
   
   const handleLogin = async (username, password) => {
-    await logIn({ variables: { username, password }, refetchQueries: [{ query: CURRENT }] });
+    logIn({ variables: { username, password }, refetchQueries: [CURRENT] });
   };
+
+  if (data) {
+    localStorage.setItem('token', data.login.token);
+  }
 
   return (
     !notAuthenticated ? <Redirect to='/' /> :
@@ -78,8 +78,9 @@ export const Login = () => {
                   }}
                   placeholder="contraseña" />
               </InputGroup>
+              <small>{error ? error.message : null}</small>
               <Button
-                // loading={false}
+                isLoading={loading ? true : false}
                 mr={2}
                 type="submit"
                 colorScheme="teal"
