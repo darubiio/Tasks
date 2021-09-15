@@ -1,15 +1,16 @@
-import React from 'react'
+import React from 'react';
+import { useQuery } from '@apollo/client';
 import { Redirect, Route } from 'react-router'
-import { UserContext } from '../../hooks/userContext';
+import { CURRENT } from '../../fetching/query';
 
 export const PrivateRoute = ({ children, ...rest }) => {
-  const { notAuthenticated, loading } = React.useContext(UserContext);
+  const { loading, error } = useQuery(CURRENT);
   return (
     <Route
       {...rest}
       render={() =>
         loading ? 'loading...' :
-        notAuthenticated ?
+        error ?
           <Redirect to="/login" /> :
           children
       }

@@ -1,14 +1,16 @@
+import React from 'react';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Box, Divider, GridItem, Text } from '@chakra-ui/layout';
 import { Tab, TabList, Tabs } from '@chakra-ui/tabs';
 import { ScaleFade } from '@chakra-ui/transition';
 import { useLocation } from "react-router-dom";
+import { CURRENT } from '../../fetching/query';
+import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { User } from './user'
-import React from 'react';
-import { UserContext } from '../../hooks/userContext';
+import { User } from './user';
 
 export const TaskMenu = () => {
+
   const MENU = [
     {
       name: 'Mi Día', icon: 'bi bi-sun', color: '#ECC94B', link: '/my-day'
@@ -40,10 +42,11 @@ export const TaskMenu = () => {
   const checkMode = () => {
     return location !== '/' ? ['none', 'revert'] : null;
   }
-  
-  const { notAuthenticated, loading } = React.useContext(UserContext);
+
+  const { loading, error } = useQuery(CURRENT);
+
   return (
-    notAuthenticated ? null :
+    error ? null :
       loading ? '' :
         <GridItem display={checkMode} colSpan={['6', '1']} pt={5} pb={5}>
           <ScaleFade initialScale={0.9} in>

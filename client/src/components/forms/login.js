@@ -1,13 +1,12 @@
 import React from 'react';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Center, GridItem, Heading, Stack } from '@chakra-ui/layout';
-import { Redirect, useHistory } from "react-router-dom";
-import { UserContext } from '../../hooks/userContext';
+import { Redirect } from "react-router-dom";
 import { ScaleFade } from '@chakra-ui/transition';
-import { gql, useMutation } from '@apollo/client';
-import { CURRENT } from '../../hooks/userContext'
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { FormControl } from "@chakra-ui/react";
 import { Button } from '@chakra-ui/button';
+import { CURRENT } from '../../fetching/query'
 
 const LOGIN = gql`
   mutation LoginUser($username: String!, $password: String!) {
@@ -19,20 +18,21 @@ const LOGIN = gql`
 export const Login = () => {
   let psw;
   let user;
-  // let history = useHistory();
-  const { notAuthenticated } = React.useContext(UserContext);
-  const [logIn, { data, loading, error }] = useMutation(LOGIN);
+  const current = useQuery(CURRENT);
+  const [logIn, { data, loading, error }] = useMutation(LOGIN);  
   
   const handleLogin = async (username, password) => {
-    logIn({ variables: { username, password }, refetchQueries: [CURRENT] });
+    await logIn({
+      variables: { username, password },
+    });
+    current.refetch()
   };
 
-  if (data) {
-    localStorage.setItem('token', data.login.token);
-  }
+  if (data) localStorage.setItem('token', data.login.token);
+  if (current) console.log(current.data);
 
   return (
-    !notAuthenticated ? <Redirect to='/' /> :
+    current.data ? <Redirect to='/' /> :
       <GridItem colSpan={6}>
         <ScaleFade initialScale={0.9} in></ScaleFade>
         <Center h='100vh'>

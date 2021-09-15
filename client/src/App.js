@@ -3,17 +3,14 @@ import { Grid } from '@chakra-ui/layout';
 import { Container } from "@chakra-ui/react";
 import { TaskMenu } from './components/task_menu/taskMenu';
 import { TaskMain } from './components/task_main/taskMain';
-import { UserProvider } from './hooks/userContext';
 
 export const App = () => {
   return (
     <Container maxW="container.2xl">
-      <UserProvider>
-        <Grid templateColumns="repeat(6, 1fr)" gap={12}>
-          <TaskMenu />
-          <TaskMain />
-        </Grid>
-      </UserProvider>
+      <Grid templateColumns="repeat(6, 1fr)" gap={12}>
+        <TaskMenu />
+        <TaskMain />
+      </Grid>
     </Container>
   )
 };
