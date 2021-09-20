@@ -1,8 +1,8 @@
 import React from 'react';
+import { useQuery } from '@apollo/client';
 import { Avatar } from '@chakra-ui/avatar';
 import { Box, Flex, Heading, Spacer } from '@chakra-ui/layout';
 import { CURRENT } from '../../../fetching/query';
-import { useQuery } from '@apollo/client';
 
 export const User = () => {
   const { loading, data } = useQuery(CURRENT);

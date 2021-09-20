@@ -1,24 +1,13 @@
 import React from 'react';
 import { Task } from '../task';
 import { BackBtn } from '../backbtn';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { ScaleFade } from '@chakra-ui/transition';
 import { GridItem, Heading, Stack, Text } from '@chakra-ui/layout';
+import { ALL_TASKS } from '../../../fetching/query';
 
-const ALL = gql`
- query LISTAS {
-  lists {
-    _id
-    name
-    tasks {
-      _id
-      name
-    }
-  }
-  }
-`
 export const All = () => {
-  const { loading, error, data } = useQuery(ALL);
+  const { loading, error, data } = useQuery(ALL_TASKS);
   
   const TaskList = data ? data.lists.map(list =>
     <>

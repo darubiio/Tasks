@@ -3,23 +3,17 @@ import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { Center, GridItem, Heading, Stack } from '@chakra-ui/layout';
 import { Redirect } from "react-router-dom";
 import { ScaleFade } from '@chakra-ui/transition';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { FormControl } from "@chakra-ui/react";
 import { Button } from '@chakra-ui/button';
-import { CURRENT } from '../../fetching/query'
-
-const LOGIN = gql`
-  mutation LoginUser($username: String!, $password: String!) {
-    login(username: $username, password: $password) {
-      token
-    }
-  }`
+import { CURRENT } from '../../fetching/query';
+import { LOGIN } from '../../fetching/mutation'
 
 export const Login = () => {
   let psw;
   let user;
   const current = useQuery(CURRENT);
-  const [logIn, { data, loading, error }] = useMutation(LOGIN);  
+  const [logIn, { data, loading, error }] = useMutation(LOGIN);
   
   const handleLogin = async (username, password) => {
     await logIn({
@@ -29,7 +23,6 @@ export const Login = () => {
   };
 
   if (data) localStorage.setItem('token', data.login.token);
-  if (current) console.log(current.data);
 
   return (
     current.data ? <Redirect to='/' /> :

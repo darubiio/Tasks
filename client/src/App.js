@@ -7,7 +7,7 @@ import { TaskMain } from './components/task_main/taskMain';
 export const App = () => {
   return (
     <Container maxW="container.2xl">
-      <Grid templateColumns="repeat(6, 1fr)" gap={12}>
+      <Grid templateColumns="repeat(6, 1fr)" gap={6}>
         <TaskMenu />
         <TaskMain />
       </Grid>
