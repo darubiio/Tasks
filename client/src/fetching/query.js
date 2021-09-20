@@ -8,3 +8,15 @@ export const CURRENT = gql`
     }
   }
 `
+export const ALL_TASKS = gql`
+  query AllTasks {
+    lists {
+      _id
+      name
+      tasks {
+        _id
+        name
+      }
+    }
+  }
+`
