@@ -1,20 +1,16 @@
 import React from 'react';
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
-import { Center, GridItem, Heading, Stack, Text } from '@chakra-ui/layout';
+import Ico from '../../image/task.ico';
 import { Redirect } from "react-router-dom";
-import { ScaleFade } from '@chakra-ui/transition';
-import { useMutation, useQuery } from '@apollo/client';
-import { FormControl, Img } from "@chakra-ui/react";
-import { Button } from '@chakra-ui/button';
 import { CURRENT } from '../../fetching/query';
 import { LOGIN } from '../../fetching/mutation';
-import img from '../../image/task.ico';
+import { useMutation, useQuery } from '@apollo/client';
+import { FormControl, Img, Button, Input, ScaleFade, InputGroup, InputLeftElement, Center, GridItem, Heading, Stack} from "@chakra-ui/react";
 
 export const Login = () => {
   let psw;
   let user;
   const current = useQuery(CURRENT);
-  const [logIn, { data, loading, error }] = useMutation(LOGIN);
+  const [logIn, { data, loading, error }] = useMutation(LOGIN, { errorPolicy: 'all' });
 
   const handleLogin = async (username, password) => {
     await logIn({
@@ -49,11 +45,10 @@ export const Login = () => {
                   width="40%"
                   align="center"
                   mb={4}
-                  src={img}
+                  src={Ico}
                   alt="ico"
                 />}
               />
-                
               <InputGroup mb={2}>
                 <InputLeftElement
                   pointerEvents="none"                  
@@ -63,8 +58,9 @@ export const Login = () => {
                 />
                 <Input
                   id='usrname'
-                  type="text"
-                  // isInvalid
+                  type="text"                  
+                  isInvalid={
+                    error && error.message === 'Invalid User' ? true : false}
                   errorBorderColor="red.300"
                   isRequired
                   ref={node => {
@@ -83,14 +79,14 @@ export const Login = () => {
                 <Input
                   id='passw'
                   type='password'
-                  // isInvalid
+                  isInvalid={ error && error.message === 'Invalid Password' ? true : false }
                   errorBorderColor="red.300"
                   isRequired
                   ref={node => {
                     psw = node;
                   }}
                   placeholder="password" />
-              </InputGroup>            
+              </InputGroup>
               <Button
                 isFullWidth
                 isLoading={loading ? true : false}
