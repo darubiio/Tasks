@@ -1,14 +1,15 @@
 import React from 'react';
 import Ico from '../../image/task.ico';
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { CURRENT } from '../../fetching/query';
 import { LOGIN } from '../../fetching/mutation';
 import { useMutation, useQuery } from '@apollo/client';
-import { FormControl, Img, Button, Input, ScaleFade, InputGroup, InputLeftElement, Center, GridItem, Heading, Stack} from "@chakra-ui/react";
+import { FormControl, Link, Img, Button, Input, ScaleFade, InputGroup, InputLeftElement, Center, GridItem, Heading, Stack} from "@chakra-ui/react";
 
 export const Login = () => {
   let psw;
   let user;
+  let history = useHistory();
   const current = useQuery(CURRENT);
   const [logIn, { data, loading, error }] = useMutation(LOGIN, { errorPolicy: 'all' });
 
@@ -26,7 +27,7 @@ export const Login = () => {
       <GridItem colSpan={6}>
         <ScaleFade initialScale={0.9} in></ScaleFade>
         <Center h='100vh'>
-          <Stack shadow='2xl' rounded='2xl' p={8}>
+          <Stack h={['66vh', '55vh']} shadow='2xl' rounded='2xl' p={8}>
             <FormControl
               as='form'
               onSubmit={e => {
@@ -34,8 +35,8 @@ export const Login = () => {
                 handleLogin(user.value, psw.value)
               }}
             >
-              <Heading mb={2} align="center">
-                Welcome !
+              <Heading color='blue.600' mt={4} mb={2} align="center">
+                Sign In
               </Heading>
               <Heading color="blue.500" fontSize="xs" align="center" mb={4}>
                 Task App by Alejandro Rubio
@@ -51,58 +52,66 @@ export const Login = () => {
               />
               <InputGroup mb={2}>
                 <InputLeftElement
-                  pointerEvents="none"                  
-                  color="gray.300"
+                  pointerEvents="none"
+                  color={error && error.message === 'Invalid User' ? 'red.400' : 'gray.400'}
                   fontSize="1.2em"
                   children={<i className="bi bi-person-fill" />}
                 />
                 <Input
                   id='usrname'
-                  type="text"                  
-                  isInvalid={
-                    error && error.message === 'Invalid User' ? true : false}
+                  type="text"
+                  isInvalid={error && error.message === 'Invalid User' ? true : false}
                   errorBorderColor="red.300"
                   isRequired
                   ref={node => {
                     user = node;
                   }}
-                  placeholder="username" />
+                  placeholder="Username" />
               </InputGroup>
 
               <InputGroup mb={6}>
                 <InputLeftElement
                   pointerEvents="none"
-                  color="gray.300"
+                  color={error && error.message === 'Invalid Password' ? 'red.400' : 'gray.400'}
                   fontSize="1.2em"
                   children={<i className="bi bi-key-fill" />}
                 />
                 <Input
                   id='passw'
                   type='password'
-                  isInvalid={ error && error.message === 'Invalid Password' ? true : false }
+                  isInvalid={error && error.message === 'Invalid Password' ? true : false}
                   errorBorderColor="red.300"
                   isRequired
                   ref={node => {
                     psw = node;
                   }}
-                  placeholder="password" />
+                  placeholder="Password" />
               </InputGroup>
               <Button
                 isFullWidth
                 isLoading={loading ? true : false}
                 mr={2}
-                mb={2}
+                mb={8}
                 type="submit"
                 colorScheme="blue"
                 variant="solid">
                 Sign In
               </Button>
-              <Button
-                isFullWidth
-                colorScheme="orange"
-                variant="solid">
-                Sign Up
-              </Button>
+              <Heading mb={2} fontSize="xs" align="center">
+                Don't have an account ?
+              </Heading>
+              <Heading
+                fontSize="sm"
+                align="center"
+                color="yellow.500"
+                onClick={e => {
+                  e.preventDefault()
+                  history.push('/signup')
+                }}>
+                <Link>
+                  Sign Up
+                </Link>
+              </Heading>
             </FormControl>
           </Stack>
         </Center>
