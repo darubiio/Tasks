@@ -4,18 +4,18 @@ import { Redirect, useHistory } from "react-router-dom";
 import { CURRENT } from '../../fetching/query';
 import { LOGIN } from '../../fetching/mutation';
 import { useMutation, useQuery } from '@apollo/client';
-import { FormControl, Link, Img, Button, Input, ScaleFade, InputGroup, InputLeftElement, Center, GridItem, Heading, Stack} from "@chakra-ui/react";
+import { FormControl, Link, Img, Button, Input, InputGroup, InputLeftElement, Center, GridItem, Heading, Stack} from "@chakra-ui/react";
 
 export const Login = () => {
   let psw;
   let user;
   let history = useHistory();
   const current = useQuery(CURRENT);
-  const [logIn, { data, loading, error }] = useMutation(LOGIN, { errorPolicy: 'all' });
+  const [register, { data, loading, error }] = useMutation(LOGIN, { errorPolicy: 'all' });
 
   const handleLogin = async (username, password) => {
-    await logIn({
-      variables: { username, password },
+    await register({
+      variables: { username, password }
     });
     current.refetch()
   };
@@ -25,9 +25,8 @@ export const Login = () => {
   return (
     current.data ? <Redirect to='/' /> :
       <GridItem colSpan={6}>
-        <ScaleFade initialScale={0.9} in></ScaleFade>
         <Center h='100vh'>
-          <Stack h={['66vh', '55vh']} shadow='2xl' rounded='2xl' p={8}>
+          <Stack h={['66vh', '55vh']} shadow='2xl' rounded='2xl' p={10}>
             <FormControl
               as='form'
               onSubmit={e => {
