@@ -12,11 +12,11 @@ import { Link, Text, Img, Button, ScaleFade, Center, GridItem, Heading, Stack } 
 export const SignUp = () => {
   let history = useHistory();
   const current = useQuery(CURRENT);
-  const [signUp, { loading, error }] = useMutation(SIGNUP, { errorPolicy: 'all' });
+  const [signUp, { loading, error }] = useMutation(SIGNUP, { onCompleted() { history.push('/login') } });
 
   const handleSignUp = async (username, password) => {
     await signUp({
-      variables: { username, password }
+      variables: { username, password },
     });
   };
 
@@ -53,46 +53,43 @@ export const SignUp = () => {
                 username: Yup.string()
                   .min(4, "Must be at least 4 characters")
                   .lowercase("Most be a lowercase user")
-                  .required("Required"),
+                  .required(""),
                 password: Yup.string()
                   .min(6, "Must be at least 6 characters")
-                  .required("Required"),
+                  .required(""),
                 passwordb: Yup.string()
                   .oneOf([Yup.ref("password"), null], "Passwords must match")
-                  .required("Required")
+                  .required("")
               })}
               onSubmit={async values => {
                 await handleSignUp(values.username, values.password)
-                history.push('/login')
-              }}
-            >
+              }}>
               <Form>
+                {error ? <Text fontSize="xs" color='red.300'>😕 {error.message}</Text> : null}
                 <TextInput
+                  required
                   ico='bi bi-person-fill'
                   type='text'
                   mbn={3}
                   name='username'
                   placeholder="Username"
                 />
-
                 <TextInput
+                  required
                   mbn={1}
                   psw='true'
                   name='password'
                   ico='bi bi-key-fill'
                   placeholder="Password"
                 />
-
                 <TextInput
+                  required
                   mbn={6}
                   psw='true'
                   name='passwordb'
                   ico='bi bi-key-fill'
                   placeholder="Confirm Password"
                 />
-
-                {error ? <Text fontSize="xs" color='red.300'>😕 {error.message}</Text> : null}
-                
                 <Button
                   isFullWidth
                   isLoading={loading ? true : false}
