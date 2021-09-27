@@ -3,6 +3,10 @@ import jwt from 'jsonwebtoken';
 const userMutations = {
 
   register: async (_, { username, password }, { User }) => {
+    const user = await User.findOne({ username });
+    if (user) {
+      throw new Error('User already exists');
+    }
     const newUser = new User({
       username,
       password: await User.encryptPassword(password)
