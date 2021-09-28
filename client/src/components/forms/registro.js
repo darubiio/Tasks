@@ -68,7 +68,7 @@ export const SignUp = () => {
                 {error ? <Text fontSize="xs" color='red.300'>😕 {error.message}</Text> : null}
                 <TextInput
                   required
-                  ico='bi bi-person-fill'
+                  ico={{name: 'bi bi-person-fill'}}
                   type='text'
                   mbn={3}
                   name='username'
@@ -79,7 +79,7 @@ export const SignUp = () => {
                   mbn={1}
                   psw='true'
                   name='password'
-                  ico='bi bi-key-fill'
+                  ico={{name: 'bi bi-key-fill'}}
                   placeholder="Password"
                 />
                 <TextInput
@@ -87,7 +87,7 @@ export const SignUp = () => {
                   mbn={6}
                   psw='true'
                   name='passwordb'
-                  ico='bi bi-key-fill'
+                  ico={{name: 'bi bi-key-fill'}}
                   placeholder="Confirm Password"
                 />
                 <Button

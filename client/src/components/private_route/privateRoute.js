@@ -9,7 +9,7 @@ export const PrivateRoute = ({ children, ...rest }) => {
     <Route
       {...rest}
       render={() =>
-        loading ? 'loading...' :
+        loading ? '' :
         error ?
           <Redirect to="/login" /> :
           children

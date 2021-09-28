@@ -15,7 +15,8 @@ export const TextInput = ({ ...props }) => {
         <InputLeftElement
           pointerEvents="none"
           fontSize="1.2em"
-          children={<i className={props.ico} />}
+          color={props.ico.color}
+          children={<i className={props.ico.name} />}
         />
         
         <Input
