@@ -11,11 +11,13 @@ import { Important } from './important/imp';
 import { Route, Switch } from 'react-router';
 import { Completed } from './completed/compd';
 import { PrivateRoute } from '../private_route/privateRoute';
+import { SignUp } from '../../components/forms/registro';
 
 export const TaskMain = () => {
   return (
     <Switch>
       <Route path='/login' component={Login} />
+      <Route path='/signup' component={SignUp} />
       <PrivateRoute path='/important' children={<Important />} />
       <PrivateRoute path='/completed' children={<Completed />} />
       <PrivateRoute path='/planned' children={<Planned />} />

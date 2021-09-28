@@ -1,24 +1,21 @@
 import React from 'react';
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
-import { Center, GridItem, Heading, Stack, Text } from '@chakra-ui/layout';
-import { Redirect } from "react-router-dom";
-import { ScaleFade } from '@chakra-ui/transition';
-import { useMutation, useQuery } from '@apollo/client';
-import { FormControl, Img } from "@chakra-ui/react";
-import { Button } from '@chakra-ui/button';
+import { Formik, Form } from "formik";
+import Ico from '../../image/task.ico';
+import { TextInput } from './textinput';
 import { CURRENT } from '../../fetching/query';
 import { LOGIN } from '../../fetching/mutation';
-import img from '../../image/task.ico';
+import { useMutation, useQuery } from '@apollo/client';
+import { Redirect, useHistory } from "react-router-dom";
+import { Link, Img, Button, Center, GridItem, Heading, Stack} from "@chakra-ui/react";
 
 export const Login = () => {
-  let psw;
-  let user;
+  let history = useHistory();
   const current = useQuery(CURRENT);
-  const [logIn, { data, loading, error }] = useMutation(LOGIN);
+  const [register, { data, loading, error }] = useMutation(LOGIN, { errorPolicy: 'all' });
 
   const handleLogin = async (username, password) => {
-    await logIn({
-      variables: { username, password },
+    await register({
+      variables: { username, password }
     });
     current.refetch()
   };
@@ -28,86 +25,79 @@ export const Login = () => {
   return (
     current.data ? <Redirect to='/' /> :
       <GridItem colSpan={6}>
-        <ScaleFade initialScale={0.9} in></ScaleFade>
         <Center h='100vh'>
-          <Stack shadow='2xl' rounded='2xl' p={8}>
-            <FormControl
-              as='form'
-              onSubmit={e => {
-                e.preventDefault()
-                handleLogin(user.value, psw.value)
+          <Stack h={['66vh', '55vh']} shadow='2xl' rounded='2xl' p={10}>
+            <Heading color='blue.600' mt={4} mb={2} align="center">
+              Sign In
+            </Heading>
+            <Heading color="blue.500" fontSize="xs" align="center" mb={4}>
+              Task App by Alejandro Rubio
+            </Heading>
+            <Center children={
+              <Img
+                width="40%"
+                align="center"
+                mb={4}
+                src={Ico}
+                alt="ico"
+              />}
+            />
+            <Formik
+              initialValues={{
+                username: "",
+                password: "",
               }}
-            >
-              <Heading mb={2} align="center">
-                Welcome !
-              </Heading>
-              <Heading color="blue.500" fontSize="xs" align="center" mb={4}>
-                Task App by Alejandro Rubio
-              </Heading>
-              <Center children={
-                <Img
-                  width="40%"
+              onSubmit={async values => {
+                await handleLogin(values.username, values.password)
+              }}>
+              <Form>
+                <TextInput
+                  mbn={2}
+                  isRequired
+                  type='text'
+                  ico={{name: 'bi bi-person-fill', color: 'gray.400'}}
+                  name='username'
+                  placeholder="Username"
+                  errorBorderColor="red.300"
+                  isInvalid={error && error.message === 'Invalid User' ? true : false}
+                />
+                <TextInput
+                  mbn={6}
+                  isRequired
+                  psw='true'
+                  ico={{name: 'bi bi-key-fill', color: 'gray.400'}}
+                  name='password'
+                  placeholder="Password"
+                  errorBorderColor="red.300"
+                  isInvalid={error && error.message === 'Invalid Password' ? true : false}
+                />
+                <Button
+                  isFullWidth
+                  isLoading={loading ? true : false}
+                  mr={2}
+                  mb={8}
+                  type="submit"
+                  colorScheme="blue"
+                  variant="solid">
+                  Sign In
+                </Button>
+                <Heading mb={2} fontSize="xs" align="center">
+                  Don't have an account ?
+                </Heading>
+                <Heading
+                  fontSize="sm"
                   align="center"
-                  mb={4}
-                  src={img}
-                  alt="ico"
-                />}
-              />
-                
-              <InputGroup mb={2}>
-                <InputLeftElement
-                  pointerEvents="none"                  
-                  color="gray.300"
-                  fontSize="1.2em"
-                  children={<i className="bi bi-person-fill" />}
-                />
-                <Input
-                  id='usrname'
-                  type="text"
-                  // isInvalid
-                  errorBorderColor="red.300"
-                  isRequired
-                  ref={node => {
-                    user = node;
-                  }}
-                  placeholder="username" />
-              </InputGroup>
-
-              <InputGroup mb={6}>
-                <InputLeftElement
-                  pointerEvents="none"
-                  color="gray.300"
-                  fontSize="1.2em"
-                  children={<i className="bi bi-key-fill" />}
-                />
-                <Input
-                  id='passw'
-                  type='password'
-                  // isInvalid
-                  errorBorderColor="red.300"
-                  isRequired
-                  ref={node => {
-                    psw = node;
-                  }}
-                  placeholder="password" />
-              </InputGroup>            
-              <Button
-                isFullWidth
-                isLoading={loading ? true : false}
-                mr={2}
-                mb={2}
-                type="submit"
-                colorScheme="blue"
-                variant="solid">
-                Sign In
-              </Button>
-              <Button
-                isFullWidth
-                colorScheme="orange"
-                variant="solid">
-                Sign Up
-              </Button>
-            </FormControl>
+                  color="yellow.500"
+                  onClick={e => {
+                    e.preventDefault()
+                    history.push('/signup')
+                  }}>
+                  <Link>
+                    Sign Up
+                  </Link>
+                </Heading>
+              </Form>
+            </Formik>
           </Stack>
         </Center>
       </GridItem>
