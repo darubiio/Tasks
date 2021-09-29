@@ -26,7 +26,7 @@ const userMutations = {
     const token = jwt.sign(
       { id: user._id, username: user.username },
       process.env.SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "30d" }
     );
     return { token, user }
   }
