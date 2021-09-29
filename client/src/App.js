@@ -3,13 +3,15 @@ import { Grid } from '@chakra-ui/layout';
 import { Container } from "@chakra-ui/react";
 import { TaskMenu } from './components/task_menu/taskMenu';
 import { TaskMain } from './components/task_main/taskMain';
+import { AddInput } from './components/add_input/addInput'
 
 export const App = () => {
   return (
     <Container maxW="container.2xl">
-      <Grid templateColumns="repeat(6, 1fr)" gap={6}>
+      <Grid h='100vh' templateRows="repeat(2, 1fr)" templateColumns="repeat(5, 1fr)" gap={6}>
         <TaskMenu />
         <TaskMain />
+        <AddInput />
       </Grid>
     </Container>
   )

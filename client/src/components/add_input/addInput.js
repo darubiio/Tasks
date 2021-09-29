@@ -1,15 +1,17 @@
 import React from 'react';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
-import { AddIcon } from '@chakra-ui/icons';
+import { GridItem } from '@chakra-ui/layout';
 
-export const AddInput = () => {
+export const AddInput = ({ ...props }) => {
   return (
-    <InputGroup>
-      <InputLeftElement
-        pointerEvents="none"
-        children={<AddIcon color="gray.300" />}
-      />
-      <Input type="tel" placeholder="New List" />
-    </InputGroup>
+    <GridItem colSpan={[5, 4]}>
+      <InputGroup>
+        <InputLeftElement
+          pointerEvents="none"
+          children={<i className='bi bi-plus-square' />}
+        />
+        <Input type="text" placeholder="Agregar Tarea" />
+      </InputGroup>
+    </GridItem>
   )
 };

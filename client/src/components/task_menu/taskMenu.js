@@ -48,7 +48,7 @@ export const TaskMenu = () => {
   return (
     error ? null :
       loading ? '' :
-        <GridItem display={checkMode} colSpan={['6', '1']} pt={5} pb={5}>
+        <GridItem display={checkMode} rowSpan={2} colSpan={['5', '1']} pt={5}>
           <ScaleFade initialScale={0.9} in>
       
             {/* Avatar and user */}
@@ -67,12 +67,13 @@ export const TaskMenu = () => {
             {/* List Menu */}
             <Tabs variant='line' orientation='vertical' isLazy colorScheme='teal'>
               <TabList w='100%' style={{ alignItems: 'start' }}>
+                
                 {MENU}
 
                 <Divider w='90%' mt={4} ml={5} />
       
                 {/* Added lists */}
-                <Box overflow='scroll' w='100%' mb={4} mt={4} h={['30vh', '43vh']} >
+                <Box overflow='scroll' w='100%' mb={4} mt={4} h={['40vh', '45vh']} >
                   <Tab style={{ boxShadow: 'none' }}>
                     <i className='bi bi-list-ul' />
                     <Text ml={3}>Nueva Lista 1</Text>
@@ -87,14 +88,14 @@ export const TaskMenu = () => {
             </Tabs>
       
             {/* Add List */}
-            <InputGroup borderColor='teal' mt={5} >
+            <InputGroup borderColor='teal' mt={5}>
               <InputLeftElement
                 ml={1}
                 boxShadow='none'
                 pointerEvents='none'
-                children={<i style={{ marginLeft: '10px' }} className='bi bi-plus-square' />}
+                children={<i className='bi bi-plus-square' />}
               />
-              <Input ml={2} type='text' placeholder='Crear Lista' />
+              <Input type='text' placeholder='Crear Lista' />
             </InputGroup>
           </ScaleFade>
         </GridItem>
