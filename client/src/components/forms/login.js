@@ -24,7 +24,7 @@ export const Login = () => {
 
   return (
     current.data ? <Redirect to='/' /> :
-      <GridItem colSpan={6}>
+      <GridItem colSpan={5}>
         <Center h='100vh'>
           <Stack h={['66vh', '55vh']} shadow='2xl' rounded='2xl' p={10}>
             <Heading color='blue.600' mt={4} mb={2} align="center">
@@ -53,8 +53,7 @@ export const Login = () => {
               <Form>
                 <TextInput
                   mbn={2}
-                  isRequired
-                  type='text'
+                  isRequired                 
                   ico={{name: 'bi bi-person-fill', color: 'gray.400'}}
                   name='username'
                   placeholder="Username"

@@ -22,7 +22,7 @@ export const SignUp = () => {
 
   return (
     current.data ? <Redirect to='/' /> :
-      <GridItem colSpan={6}>
+      <GridItem colSpan={5}>
         <ScaleFade initialScale={0.9} in></ScaleFade>
         <Center h='100vh'>
           <Stack color='white' bg='blue.600' h={['67vh', '64vh']} shadow='2xl' rounded='2xl' p={10}>

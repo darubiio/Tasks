@@ -39,6 +39,7 @@ export const TaskMenu = () => {
   });
 
   const location = useLocation().pathname
+  
   const checkMode = () => {
     return location !== '/' ? ['none', 'revert'] : null;
   }
@@ -55,7 +56,9 @@ export const TaskMenu = () => {
             <User />
 
             {/* Search Input */}
-            <InputGroup borderColor='teal' mb={5} display={{ base: 'none', md: 'revert' }} >
+            <InputGroup
+              borderColor='teal'
+              mb={5} display={{ base: 'none', md: 'revert' }} >
               <InputLeftElement
                 boxShadow='none'
                 pointerEvents='none'
