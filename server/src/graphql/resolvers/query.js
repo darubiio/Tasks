@@ -1,6 +1,6 @@
 const Query = {
     tasks: async (_, __, { Task, currentUser }) => {
-        return await Task.find({ by: currentUser.id }).populate('list');
+        return await Task.find({ by: currentUser.id, list: null }).populate('list');
     },
     lists: async (_, __, { List, currentUser }) => {
         return await List.find({ by: currentUser.id }).populate('tasks');
