@@ -2,8 +2,10 @@ import React from 'react';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
 import { GridItem } from '@chakra-ui/layout';
 import { useLocation } from 'react-router';
-import { useQuery } from '@apollo/client';
-import { CURRENT } from '../../fetching/query';
+import { useMutation, useQuery } from '@apollo/client';
+import { CURRENT } from '../../../fetching/query';
+import { ADD_TASK } from '../../../fetching/mutation';
+import { ALL_TASKS } from '../../../fetching/query';
 
 export const AddInput = () => {
 
@@ -15,8 +17,13 @@ export const AddInput = () => {
     return location === '/' ? ['none', 'revert'] : null;
   }
 
-  const addTask = (task) => {
-    console.log(task);
+  const [addT] = useMutation(ADD_TASK, { errorPolicy: 'all' });
+
+  const addTask = async name => {
+    await addT({
+      variables: { name },
+      refetchQueries: [{ query: ALL_TASKS}]
+    })
   }
 
   return (

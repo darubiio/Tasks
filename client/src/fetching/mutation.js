@@ -14,3 +14,10 @@ export const SIGNUP = gql`
     }
 }`
 
+export const ADD_TASK = gql`
+  mutation CreateTaskMutation($name: String!) {
+  createTask(name: $name) {
+    _id
+  }
+}
+`

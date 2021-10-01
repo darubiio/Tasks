@@ -10,13 +10,28 @@ export const CURRENT = gql`
 `
 export const ALL_TASKS = gql`
   query AllTasks {
-    lists {
+  tasks {
+    _id
+    name
+  }
+  lists {
+    _id
+    name
+    tasks {
+      _id
+      name      
+      important
+      state
+    }
+  }
+}
+`
+
+export const TASKS = gql`
+  query Tasks {
+    tasks {
       _id
       name
-      tasks {
-        _id
-        name
-      }
     }
   }
 `
