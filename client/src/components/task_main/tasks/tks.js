@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, GridItem, Heading } from '@chakra-ui/layout';
 import { ScaleFade } from '@chakra-ui/transition';
 import { TASKS } from '../../../fetching/query';
-import { Tasksl } from '../task/taskslist';
+import { Tasksl } from '../task/tasks';
 import { useQuery } from '@apollo/client';
 import { BackBtn } from '../backbtn';
 
