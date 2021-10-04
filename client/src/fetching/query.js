@@ -8,6 +8,7 @@ export const CURRENT = gql`
     }
   }
 `
+
 export const ALL_TASKS = gql`
   query AllTasks {
   tasks {
@@ -26,6 +27,7 @@ export const ALL_TASKS = gql`
   }
 }
 `
+
 export const TASKS = gql`
   query Tasks {
     tasks {
@@ -33,4 +35,49 @@ export const TASKS = gql`
       name
     }
   }
+`
+
+export const MY_DAY = gql`
+  query MyDay {
+  tasksMyDay {
+    _id
+    name
+    state
+    myDay
+    important
+    list {
+      name
+    }    
+  }
+}
+`
+
+export const IMPORTANTS = gql`
+  query Importants {
+  tasksImportants {
+    _id
+    name
+    myDay
+    state
+    important
+    list {
+      name
+    }
+  }
+}
+`
+
+export const COMPLETED = gql`
+  query Completed {
+  tasksCompleted {
+    _id
+    name
+    state
+    myDay
+    important
+    list {
+      name
+    }
+  }
+}
 `
