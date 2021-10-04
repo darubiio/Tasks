@@ -26,7 +26,6 @@ export const ALL_TASKS = gql`
   }
 }
 `
-
 export const TASKS = gql`
   query Tasks {
     tasks {
