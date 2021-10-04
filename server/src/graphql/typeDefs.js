@@ -3,9 +3,12 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 
 type Query {
+  currentUser: User!
   tasks: [Task!]
   lists: [List!]
-  currentUser: User!
+  tasksImportants: [Task!]
+  tasksCompleted: [Task!]
+  tasksMyDay: [Task!]
 }
 
 type User {
@@ -22,11 +25,11 @@ type Step {
 type Task {
   _id: ID!
   name: String
-  state: Boolean
-  important: Boolean
   date: String
   dueDate: String
+  state: Boolean
   myDay: Boolean
+  important: Boolean
   note: String
   steps: [Step!]
   list: List
