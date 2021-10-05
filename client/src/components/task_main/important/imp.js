@@ -4,7 +4,7 @@ import { ScaleFade } from '@chakra-ui/transition';
 import React from 'react';
 import { BackBtn } from '../backbtn';
 import { IMPORTANTS } from '../../../fetching/query';
-import { Tasksl } from '../task/tasks';
+import { Tasksl } from '../task/tasksl';
 
 export const Important = () => {
   const { loading, error, data } = useQuery(IMPORTANTS);
@@ -15,7 +15,7 @@ export const Important = () => {
         <Box h='88vh' overflow='scroll'>
           <BackBtn />
           <Heading size='lg' color='red.400'>Importante</Heading>
-          <Tasksl imptt data={data} error={error} loading={loading} />
+          <Tasksl state='tasksImportants' data={data} error={error} loading={loading} />
         </Box>
       </ScaleFade>
     </GridItem>

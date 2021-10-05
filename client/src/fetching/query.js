@@ -14,6 +14,7 @@ export const ALL_TASKS = gql`
   tasks {
     _id
     name
+    state
   }
   lists {
     _id
@@ -33,6 +34,7 @@ export const TASKS = gql`
     tasks {
       _id
       name
+      state
     }
   }
 `

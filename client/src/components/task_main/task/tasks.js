@@ -1,38 +1,39 @@
 import React from 'react';
-import { Task } from '.';
-import { Box, Text, ScaleFade, Image, Center } from '@chakra-ui/react';
-import myday from '../../../image/components/myday.svg'
-import important from '../../../image/components/important.svg'
-import complted from '../../../image/components/complted.svg'
+import { ScaleFade } from '@chakra-ui/transition';
+import { Flex, Spacer, Text } from '@chakra-ui/layout';
+import { useMutation } from '@apollo/client';
+import { CHANGE_STATE } from '../../../fetching/mutation';
+import { COMPLETED } from '../../../fetching/query';
 
+export const Task = ({ id, name, completed }) => {
+  
+  const [hover, sethover] = React.useState('md'),
+    [stateChange] = useMutation(CHANGE_STATE, { errorPolicy: 'all' }),
+    
+    handleStateChange = async (e, id, completed) => {
+      await stateChange({
+        variables: { _id: id, state: !completed, important: false, myDay: false },
+        refetchQueries: [{ query: COMPLETED }]
+      })
+    };
 
-// Tasks without associated list
-export const Tasksl = ({ loading, error, data, myDay, imptt, cmplted }) => {
   return (
-    <Box mt={4}>
-      <ScaleFade initialScale={0.9} in>
-        {
-          loading ? '' :
-            error ? `Error : ( ${error.message}` :
-              data.tasks &&
-                data.tasks.length !== 0 ?
-                <Box>
-                  <Text mt={4} ml={2} fontSize='sm'>Tareas</Text>
-                  {data.tasks.map(task =>
-                    <Task key={task._id} id={task._id} name={task.name} />
-                  )}
-                </Box> :
-                <Center h='80vh'>
-                  {myDay ?
-                    <Image boxSize='45rem' src={myday} alt="My Day" /> :
-                    imptt ?
-                      <Image boxSize='45rem' src={important} alt="Important" /> :
-                      cmplted ?
-                        <Image boxSize='45rem' src={complted} alt="Completed" />
-                        : 'aa'}
-                </Center>
-        }
-      </ScaleFade>
-    </Box>
+    <ScaleFade initialScale={0.9} in>
+      <Flex w='100%'
+        textAlign='start'
+        as='button' p={3}
+        shadow={hover}
+        onMouseEnter={() => sethover('xl')}
+        onMouseLeave={() => sethover('md')}
+        borderRadius='xl'
+        mb={2}
+        borderWidth="1px">
+        <i onClick={e => handleStateChange(e, id, completed)} style={{ marginRight: '15px' }} className={!completed ? "bi bi-circle" : 'bi bi-check-circle'} />
+        <Text>{name}</Text>
+        {/* textDecoration={!completed ? 'none' : 'underline'}  */}
+        <Spacer />
+        <i style={{ marginRight: '15px' }} className="bi bi-star" />
+      </Flex>
+    </ScaleFade>
   )
 };

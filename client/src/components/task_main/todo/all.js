@@ -9,14 +9,13 @@ import { Taskslists } from '../task/taskslists';
 export const All = () => {
   const { loading, error, data } = useQuery(ALL_TASKS);
             
-
   return (
     <GridItem p={[1, 5]} colSpan={[5, 4]}>
       <ScaleFade initialScale={0.9} in>
         <Box h='88vh' overflow='scroll'>
           <BackBtn />
           <Heading size='lg' color='orange.500'>Todo</Heading>
-          <Taskslists loading={loading} error={error} data={data}/>
+          <Taskslists state='tasks' loading={loading} error={error} data={data}/>
         </Box>
       </ScaleFade>
     </GridItem>

@@ -4,7 +4,7 @@ import { ScaleFade } from '@chakra-ui/transition';
 import React from 'react';
 import { BackBtn } from '../backbtn';
 import { COMPLETED } from '../../../fetching/query';
-import { Tasksl } from '../task/tasks';
+import { Tasksl } from '../task/tasksl';
 
 export const Completed = () => {
   const { loading, error, data } = useQuery(COMPLETED);
@@ -15,7 +15,7 @@ export const Completed = () => {
         <Box h='88vh' overflow='scroll'>
           <BackBtn />
           <Heading size='lg' color='cyan.700'>Completado</Heading>
-          <Tasksl cmplted data={data} error={error} loading={loading} />
+          <Tasksl state='tasksCompleted' data={data} error={error} loading={loading} />
         </Box>
       </ScaleFade>
     </GridItem>

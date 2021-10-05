@@ -1,6 +1,6 @@
 import React from 'react';
 import { BackBtn } from '../backbtn';
-import { Tasksl } from '../task/tasks';
+import { Tasksl } from '../task/tasksl';
 import { useQuery } from '@apollo/client';
 import { MY_DAY } from '../../../fetching/query';
 import { ScaleFade } from '@chakra-ui/transition';
@@ -18,7 +18,7 @@ export const MyDay = () => {
           <BackBtn />
           <Heading size='lg' color='yellow.400'>Mi Día</Heading>
           <Heading as="h6" size="xs">{DATE}</Heading>
-          <Tasksl myDay data={data} error={error} loading={loading} />
+          <Tasksl state='tasksMyDay' data={data} error={error} loading={loading} />
         </Box>
       </ScaleFade>
     </GridItem>
