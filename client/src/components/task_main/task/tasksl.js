@@ -1,9 +1,9 @@
 import React from 'react';
 import { Task } from './tasks';
 import { Box, Text, ScaleFade, Image, Center } from '@chakra-ui/react';
-import myday from '../../../image/components/myday.svg'
-import important from '../../../image/components/important.svg'
-import complted from '../../../image/components/complted.svg'
+// import myday from '../../../image/components/myday.svg'
+// import important from '../../../image/components/important.svg'
+// import complted from '../../../image/components/complted.svg'
 
 
 // Tasks without associated list
@@ -37,9 +37,9 @@ export const Tasksl = ({ loading, error, data, state }) => {
                 <Box>
                   <Text mt={4} ml={2} fontSize='sm'>Tareas</Text>
                   {data[state].map(task =>
-                    <Task id={task._id} key={task._id} completed={task.state}  name={task.name} />
+                    <Task id={task._id} key={task._id} completed={task.state} important={task.important}  name={task.name} />
                   )}
-                </Box> : 'a'
+                </Box> : 'Empty'
         }
       </ScaleFade>
     </Box>

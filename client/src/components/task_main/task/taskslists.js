@@ -17,7 +17,7 @@ export const Taskslists = ({ loading, error, data, state }) => {
               <Box key={list._id} id={list._id}>
                 <Text mt={4} ml={2} fontSize='sm'>{list.name}</Text>
                 {list.tasks.map(task =>
-                  <Task key={task._id} completed={task.state} id={task._id} name={task.name} />
+                  <Task key={task._id} completed={task.state} important={task.important} id={task._id} name={task.name} />
                 )}
               </Box>
             )}

@@ -28,6 +28,8 @@ export const CHANGE_STATE = gql`
     _id
     name
     state
+    important
+    myDay
   }
 }
 `

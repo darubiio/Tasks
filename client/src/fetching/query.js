@@ -15,6 +15,8 @@ export const ALL_TASKS = gql`
     _id
     name
     state
+    important
+    myDay
   }
   lists {
     _id
@@ -23,6 +25,7 @@ export const ALL_TASKS = gql`
       _id
       name      
       important
+      myDay
       state
     }
   }
@@ -35,6 +38,8 @@ export const TASKS = gql`
       _id
       name
       state
+      important
+      myDay
     }
   }
 `
