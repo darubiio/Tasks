@@ -1,10 +1,10 @@
+import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Box, GridItem, Heading } from '@chakra-ui/layout';
 import { ScaleFade } from '@chakra-ui/transition';
-import React from 'react';
 import { BackBtn } from '../backbtn';
-import { IMPORTANTS } from '../../../fetching/query';
 import { Tasksl } from '../task/tasksl';
+import { IMPORTANTS } from '../../../fetching/query';
 
 export const Important = () => {
   const { loading, error, data } = useQuery(IMPORTANTS);

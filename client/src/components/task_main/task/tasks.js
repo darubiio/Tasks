@@ -9,6 +9,8 @@ export const Task = ({ id, name, completed, important }) => {
   
   const [hover, sethover] = React.useState('md'),
     [stateChange] = useMutation(CHANGE_STATE, { errorPolicy: 'all' }),
+
+    // PROXIMA TAREA SEPARAR MUTACIONES DE LOS ESTADOS DE LA TAREA!!!!
     
     handleStateChange = async (e, id, completed, important) => {
       await stateChange({
