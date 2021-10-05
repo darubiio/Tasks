@@ -17,7 +17,7 @@ const Query = {
         return await Task.find({ by: currentUser.id, important: true }).populate('list');
     },
     tasksCompleted: async (_, __, { Task, currentUser }) => {
-        return await Task.find({ by: currentUser.id, completed: true }).populate('list');
+        return await Task.find({ by: currentUser.id, state: true }).populate('list');
     },
     tasksMyDay: async (_, __, { Task, currentUser }) => {
         return await Task.find({ by: currentUser.id, myDay: true }).populate('list');
