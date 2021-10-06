@@ -2,26 +2,25 @@ import React from 'react';
 import { ScaleFade } from '@chakra-ui/transition';
 import { Flex, Spacer, Text } from '@chakra-ui/layout';
 import { useMutation } from '@apollo/client';
-import { CHANGE_STATE } from '../../../fetching/mutation';
+import { CHANGE_STATE, CHANGE_IMPORTANT_STATE } from '../../../fetching/mutation';
 import { COMPLETED, IMPORTANTS } from '../../../fetching/query';
 
 export const Task = ({ id, name, completed, important }) => {
   
   const [hover, sethover] = React.useState('md'),
-    [stateChange] = useMutation(CHANGE_STATE, { errorPolicy: 'all' }),
-
-    // PROXIMA TAREA SEPARAR MUTACIONES DE LOS ESTADOS DE LA TAREA!!!!
+    [stateChange] = useMutation(CHANGE_STATE),
+    [stateImpChange] = useMutation(CHANGE_IMPORTANT_STATE),
     
     handleStateChange = async () => {
       await stateChange({
-        variables: { _id: id, state: !completed, important: important, myDay: false },
+        variables: { _id: id, state: !completed },
         refetchQueries: [{ query: COMPLETED }]
       })
     },
 
     handleImportantChange = async () => {
-      await stateChange({
-        variables: { _id: id, state: completed, important: !important, myDay: false },
+      await stateImpChange({
+        variables: { _id: id, important: !important },
         refetchQueries: [{ query: IMPORTANTS }]
       })
     };

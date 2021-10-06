@@ -23,13 +23,19 @@ export const ADD_TASK = gql`
 `
 
 export const CHANGE_STATE = gql`
-  mutation UPDATE_STATE($_id: ID!, $state: Boolean!, $important: Boolean!, $myDay: Boolean!) {
-  updateTaskState(_id: $_id, state: $state, important: $important, myDay: $myDay) {
+  mutation UPDATE_STATE($_id: ID!, $state: Boolean!) {
+  updateTaskState(_id: $_id, state: $state ) {
     _id
-    name
     state
+  }
+}
+`
+
+export const CHANGE_IMPORTANT_STATE = gql`
+  mutation UpdateTaskStateImportantMutation($_id: ID!, $important: Boolean!) {
+  updateTaskStateImportant(_id: $_id, important: $important) {
+    _id
     important
-    myDay
   }
 }
 `

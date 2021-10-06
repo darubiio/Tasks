@@ -46,33 +46,32 @@ export const TASKS = gql`
 
 export const MY_DAY = gql`
   query MyDay {
-  tasksMyDay {
-    _id
-    name
-    state
-    myDay
-    important
-    list {
+    tasksMyDay {
+      _id
       name
-    }    
+      state
+      myDay
+      important
+      list {
+        name
+      }    
+    }
   }
-}
 `
 
 export const IMPORTANTS = gql`
   query Importants {
-  tasksImportants {
-    _id
-    name
-    myDay
-    state
-    important
-    list {
-      id
+    tasksImportants {
+      _id
       name
+      myDay
+      state
+      important
+      list {
+        name
+      }
     }
   }
-}
 `
 
 export const COMPLETED = gql`

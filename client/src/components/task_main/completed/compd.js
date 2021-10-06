@@ -1,10 +1,9 @@
-import { useQuery } from '@apollo/client';
-import { Box, GridItem, Heading } from '@chakra-ui/layout';
-import { ScaleFade } from '@chakra-ui/transition';
 import React from 'react';
 import { BackBtn } from '../backbtn';
-import { COMPLETED } from '../../../fetching/query';
 import { Tasksl } from '../task/tasksl';
+import { useQuery } from '@apollo/client';
+import { COMPLETED } from '../../../fetching/query';
+import { Box, ScaleFade, GridItem, Heading } from '@chakra-ui/react';
 
 export const Completed = () => {
   const { loading, error, data } = useQuery(COMPLETED);
