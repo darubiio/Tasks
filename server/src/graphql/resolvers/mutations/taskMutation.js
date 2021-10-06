@@ -32,8 +32,16 @@ const taskMutations = {
         return await Task.findByIdAndDelete(_id);
     },
 
-    updateTaskState: async (_, { _id, state, important, myDay }, { Task }) => {
-        return await Task.findByIdAndUpdate(_id, { state, important, myDay }, { new: true });
+    updateTaskState: async (_, { _id, state }, { Task }) => {
+        return await Task.findByIdAndUpdate(_id, { state }, { new: true });
+    },
+
+    updateTaskStateImportant: async (_, { _id, important }, { Task }) => {
+        return await Task.findByIdAndUpdate(_id, { important }, { new: true });
+    },
+
+    updateTaskStateMyDay: async (_, { _id, myDay }, { Task }) => {
+        return await Task.findByIdAndUpdate(_id, { myDay }, { new: true });
     },
 
     updateNote: async (_, { _id, note }, { Task }) => {

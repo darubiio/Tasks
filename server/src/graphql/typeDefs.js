@@ -95,9 +95,17 @@ type Mutation {
   updateTaskState( 
     _id: ID!,
     state: Boolean!,
+  ): Task
+  
+  updateTaskStateImportant( 
+    _id: ID!,
     important: Boolean!,
-    myDay: Boolean!,
-  ): Task  
+  ): Task
+  
+  updateTaskStateMyDay(
+    _id: ID!,
+    myDay: Boolean!
+  ): Task
 
   updateNote(
     _id: ID!,
