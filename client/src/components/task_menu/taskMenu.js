@@ -1,13 +1,15 @@
 import React from 'react';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
-import { Box, Divider, GridItem, Text } from '@chakra-ui/layout';
+import { Divider, GridItem, Text } from '@chakra-ui/layout';
+import { CURRENT, LISTS } from '../../fetching/query';
 import { Tab, TabList, Tabs } from '@chakra-ui/tabs';
 import { ScaleFade } from '@chakra-ui/transition';
 import { useLocation } from "react-router-dom";
-import { CURRENT } from '../../fetching/query';
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
+import { List } from './list/list';
 import { User } from './user';
+import { AddList } from './add_list/addList';
 
 export const TaskMenu = () => {
 
@@ -36,19 +38,21 @@ export const TaskMenu = () => {
         </Tab>
       </Link>
     )
-  });
+  }),
 
-  const location = useLocation().pathname
+    location = useLocation().pathname,
   
-  const checkMode = () => {
-    return location !== '/' ? ['none', 'revert'] : null;
-  }
+    checkMode = () => {
+      return location !== '/' ? ['none', 'revert'] : null;
+    },
 
-  const { loading, error } = useQuery(CURRENT);
+    // Current user check and list query
+    current = useQuery(CURRENT),
+    lists = useQuery(LISTS);
 
   return (
-    error ? null :
-      loading ? '' :
+    current.error ? null :
+      current.loading ? '' :
         <GridItem display={checkMode} rowSpan={2} colSpan={['5', '1']} pt={5}>
           <ScaleFade initialScale={0.9} in>
       
@@ -70,36 +74,17 @@ export const TaskMenu = () => {
             {/* List Menu */}
             <Tabs variant='line' orientation='vertical' isLazy colorScheme='teal'>
               <TabList w='100%' style={{ alignItems: 'start' }}>
-                
+                {/* Tab buttons list */}
                 {MENU}
-
                 <Divider w='90%' mt={4} ml={5} />
       
-                {/* Added lists */}
-                <Box overflow='scroll' w='100%' mb={4} mt={4} h={['40vh', '45vh']} >
-                  <Tab style={{ boxShadow: 'none' }}>
-                    <i className='bi bi-list-ul' />
-                    <Text ml={3}>Nueva Lista 1</Text>
-                  </Tab>
-                  <Tab style={{ boxShadow: 'none' }}>
-                    <i className='bi bi-list-ul' />
-                    <Text ml={3}>Nueva Lista 2</Text>
-                  </Tab>
-                </Box>
-
+                <List lists={lists} />
+                
               </TabList>
             </Tabs>
       
-            {/* Add List */}
-            <InputGroup borderColor='teal' mt={5}>
-              <InputLeftElement
-                ml={1}
-                boxShadow='none'
-                pointerEvents='none'
-                children={<i className='bi bi-plus-square' />}
-              />
-              <Input type='text' placeholder='Crear Lista' />
-            </InputGroup>
+            <AddList />
+
           </ScaleFade>
         </GridItem>
   )

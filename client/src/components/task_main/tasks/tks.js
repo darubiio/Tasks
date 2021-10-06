@@ -15,7 +15,7 @@ export const Tasks = () => {
         <Box h='88vh' overflow='scroll'>
           <BackBtn />
           <Heading size='lg' color='orange.800'>Tareas</Heading>
-          <Tasksl data={data} error={error} loading={loading} />
+          <Tasksl state='tasks' data={data} error={error} loading={loading} />
         </Box>
       </ScaleFade>
     </GridItem>

@@ -22,6 +22,15 @@ export const ADD_TASK = gql`
 }
 `
 
+export const ADD_LIST = gql`
+  mutation ADD_LIST($name: String!) {
+    createList(name: $name) {
+      _id
+      name
+    }
+  }
+`
+
 export const CHANGE_STATE = gql`
   mutation UPDATE_STATE($_id: ID!, $state: Boolean!) {
   updateTaskState(_id: $_id, state: $state ) {
