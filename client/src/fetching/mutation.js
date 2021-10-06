@@ -13,3 +13,38 @@ export const SIGNUP = gql`
       _id
     }
 }`
+
+export const ADD_TASK = gql`
+  mutation CreateTaskMutation($name: String!) {
+  createTask(name: $name) {
+    _id
+  }
+}
+`
+
+export const ADD_LIST = gql`
+  mutation ADD_LIST($name: String!) {
+    createList(name: $name) {
+      _id
+      name
+    }
+  }
+`
+
+export const CHANGE_STATE = gql`
+  mutation UPDATE_STATE($_id: ID!, $state: Boolean!) {
+  updateTaskState(_id: $_id, state: $state ) {
+    _id
+    state
+  }
+}
+`
+
+export const CHANGE_IMPORTANT_STATE = gql`
+  mutation UpdateTaskStateImportantMutation($_id: ID!, $important: Boolean!) {
+  updateTaskStateImportant(_id: $_id, important: $important) {
+    _id
+    important
+  }
+}
+`

@@ -3,9 +3,14 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
 
 type Query {
-  tasks: [Task!]
-  lists: [List!]
   currentUser: User!
+  tasks: [Task!]
+  task: Task!
+  lists: [List!]
+  list: List!
+  tasksImportants: [Task!]
+  tasksCompleted: [Task!]
+  tasksMyDay: [Task!]
 }
 
 type User {
@@ -22,11 +27,11 @@ type Step {
 type Task {
   _id: ID!
   name: String
-  state: Boolean
-  important: Boolean
   date: String
   dueDate: String
+  state: Boolean
   myDay: Boolean
+  important: Boolean
   note: String
   steps: [Step!]
   list: List
@@ -90,9 +95,17 @@ type Mutation {
   updateTaskState( 
     _id: ID!,
     state: Boolean!,
+  ): Task
+  
+  updateTaskStateImportant( 
+    _id: ID!,
     important: Boolean!,
-    myDay: Boolean!,
-  ): Task  
+  ): Task
+  
+  updateTaskStateMyDay(
+    _id: ID!,
+    myDay: Boolean!
+  ): Task
 
   updateNote(
     _id: ID!,

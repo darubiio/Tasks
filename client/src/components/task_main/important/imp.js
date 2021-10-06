@@ -1,14 +1,22 @@
-import { GridItem, Heading } from '@chakra-ui/layout';
-import { ScaleFade } from '@chakra-ui/transition';
 import React from 'react';
+import { useQuery } from '@apollo/client';
+import { Box, GridItem, Heading } from '@chakra-ui/layout';
+import { ScaleFade } from '@chakra-ui/transition';
 import { BackBtn } from '../backbtn';
+import { Tasksl } from '../task/tasksl';
+import { IMPORTANTS } from '../../../fetching/query';
 
 export const Important = () => {
+  const { loading, error, data } = useQuery(IMPORTANTS);
+
   return (
-    <GridItem p={5} colSpan={5}>
+    <GridItem p={[1, 5]} colSpan={[5, 4]}>
       <ScaleFade initialScale={0.9} in>
-        <BackBtn />
-        <Heading size='lg' color='red.400'>Importante</Heading>
+        <Box h='88vh' overflow='scroll'>
+          <BackBtn />
+          <Heading size='lg' color='red.400'>Importante</Heading>
+          <Tasksl state='tasksImportants' data={data} error={error} loading={loading} />
+        </Box>
       </ScaleFade>
     </GridItem>
   )
