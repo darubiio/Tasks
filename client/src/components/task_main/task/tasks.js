@@ -12,7 +12,7 @@ export const Task = ({ id, name, completed, important }) => {
 
     // PROXIMA TAREA SEPARAR MUTACIONES DE LOS ESTADOS DE LA TAREA!!!!
     
-    handleStateChange = async (e, id, completed, important) => {
+    handleStateChange = async () => {
       await stateChange({
         variables: { _id: id, state: !completed, important: important, myDay: false },
         refetchQueries: [{ query: COMPLETED }]
