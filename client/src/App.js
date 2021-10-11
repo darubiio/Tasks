@@ -3,7 +3,7 @@ import { Grid } from '@chakra-ui/layout';
 import { Container } from "@chakra-ui/react";
 import { TaskMenu } from './components/task_menu/taskMenu';
 import { TaskMain } from './components/task_main/taskMain';
-import { AddInput } from './components/add_input/addInput'
+import { AddInput } from './components/forms/add_input/addInput';
 
 export const App = () => {
   return (
