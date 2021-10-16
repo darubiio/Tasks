@@ -5,9 +5,9 @@ const typeDefs = gql`
 type Query {
   currentUser: User!
   tasks: [Task!]
-  task: Task!
+  task(_id: ID): Task!
   lists: [List!]
-  list: List!
+  list(_id: ID): List!
   tasksImportants: [Task!]
   tasksCompleted: [Task!]
   tasksMyDay: [Task!]
