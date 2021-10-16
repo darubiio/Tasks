@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Main } from './main';
 import { All } from './todo/all';
+import { List } from './list/list';
 import { MyDay } from './myDay/md';
 import { Tasks } from './tasks/tks';
 import { Login } from '../forms/login';
@@ -20,6 +21,7 @@ export const TaskMain = () => {
       <Route path='/signup' component={SignUp} />
       <PrivateRoute path='/important' children={<Important />} />
       <PrivateRoute path='/completed' children={<Completed />} />
+      <PrivateRoute path='/list/:id' children={<List />} />
       <PrivateRoute path='/planned' children={<Planned />} />
       <PrivateRoute path='/asigned' children={<Asigned />} />
       <PrivateRoute path='/my-day' children={<MyDay />} />
