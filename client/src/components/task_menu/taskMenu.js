@@ -1,6 +1,6 @@
 import React from 'react';
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
-import { Divider, GridItem, Text } from '@chakra-ui/layout';
+import { Box, Divider, GridItem, Text } from '@chakra-ui/layout';
 import { CURRENT, LISTS } from '../../fetching/query';
 import { Tab, TabList, Tabs } from '@chakra-ui/tabs';
 import { ScaleFade } from '@chakra-ui/transition';
@@ -13,7 +13,7 @@ import { AddList } from './add_list/addList';
 
 export const TaskMenu = () => {
 
-  const MENU = [
+  const Menu = [
     {
       name: 'Mi Día', icon: 'bi bi-sun', color: '#ECC94B', link: '/my-day'
     }, {
@@ -29,19 +29,10 @@ export const TaskMenu = () => {
     }, {
       name: 'Tareas', icon: 'bi bi-folder-check', color: '#975A16', link: '/tasks'
     }
-  ].map((item) => {
-    return (
-      <Link key={item.name} to={item.link}>
-        <Tab style={{ boxShadow: 'none' }}>
-          <i style={{ color: item.color }} className={item.icon} />
-          <Text ml={3}>{item.name}</Text>
-        </Tab>
-      </Link>
-    )
-  }),
+  ],
 
+    // Hide menu if we are not on the main page in mobile version
     location = useLocation().pathname,
-  
     checkMode = () => {
       return location !== '/' ? ['none', 'revert'] : null;
     },
@@ -50,6 +41,7 @@ export const TaskMenu = () => {
     current = useQuery(CURRENT),
     lists = useQuery(LISTS);
 
+  
   return (
     current.error ? null :
       current.loading ? '' :
@@ -72,17 +64,36 @@ export const TaskMenu = () => {
             </InputGroup>
       
             {/* List Menu */}
-            <Tabs variant='line' orientation='vertical' isLazy colorScheme='teal'>
+            <Tabs
+              defaultIndex={Menu.findIndex(item => item.link === location)}
+              variant='line'
+              orientation='vertical'
+              colorScheme='teal'>
               <TabList w='100%' style={{ alignItems: 'start' }}>
+                
                 {/* Tab buttons list */}
-                {MENU}
+                {Menu.map((item) => {
+                  return (
+                    <Link key={item.name} to={item.link}>
+                      <Tab style={{ boxShadow: 'none' }}>
+                        <Box d='flex'>
+                          <i style={{ color: item.color }} className={item.icon} />
+                          <Text ml={3}>{item.name}</Text>
+                        </Box>
+                      </Tab>
+                    </Link>
+                  )
+                })}
+                
                 <Divider w='90%' mt={4} ml={5} />
       
+                {/* Lists */}
                 <List lists={lists} />
                 
               </TabList>
             </Tabs>
-      
+            
+            {/* Add List Input */}
             <AddList />
 
           </ScaleFade>
