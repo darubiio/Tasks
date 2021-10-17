@@ -17,6 +17,21 @@ export const LISTS = gql`
   }
 }
 `
+export const LIST = gql`
+  query List($_id: ID!) {
+    list(_id: $_id) {
+      _id
+      name
+      tasks {
+        _id
+        name
+        state
+        important
+        myDay      
+      }
+    }
+  }
+`
 
 export const ALL_TASKS = gql`
   query AllTasks {
