@@ -4,44 +4,28 @@ import { Box, Divider, GridItem, Text } from '@chakra-ui/layout';
 import { CURRENT, LISTS } from '../../fetching/query';
 import { Tab, TabList, Tabs } from '@chakra-ui/tabs';
 import { ScaleFade } from '@chakra-ui/transition';
+import { TabsData } from './tabs_data/tabsData';
 import { useLocation } from "react-router-dom";
 import { AddList } from './add_list/addList';
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { List } from './list/list';
 import { User } from './user';
+import { useQueryParams } from '../../hook/searchParams';
 
 export const TaskMenu = () => {
 
-  const Menu = [
-    {
-      name: 'Mi Día', icon: 'bi bi-sun', color: '#ECC94B', link: '/my_day?name=Mi Día'
-    }, {
-      name: 'Importante', icon: 'bi bi-star', color: '#9B2C2C', link: '/importants?name=Importante'
-    }, {
-      name: 'Planeado', icon: 'bi bi-calendar-event', color: '#2C5282', link: '/planned?name=Planeado'
-    }, {
-      name: 'Todo', icon: 'bi bi-list', color: '#9B2C2C', link: '/all_tasks?name=Todo'
-    }, {
-      name: 'Completado', icon: 'bi bi-check2-circle', color: '#38B2AC', link: '/completed?name=Completado'
-    }, {
-      name: 'Asignado', icon: 'bi bi-person', color: '#6B46C1', link: '/asigned?name=Asignado'
-    }, {
-      name: 'Tareas', icon: 'bi bi-folder-check', color: '#975A16', link: '/tasks?name=Tareas'
-    }
-  ],
-
     // Hide menu if we are not on the main page in mobile version
-    location = useLocation().pathname,
+  const location = useLocation().pathname,
+    params = useQueryParams(),
     checkMode = () => {
-      return location !== '/' ? ['none', 'revert'] : null;
+      return params.get('main') === null ? ['none', 'revert'] : null;
     },
 
     // Current user check and list query
     current = useQuery(CURRENT),
     lists = useQuery(LISTS);
 
-  
   return (
     current.error ? null :
       current.loading ? '' :
@@ -65,14 +49,14 @@ export const TaskMenu = () => {
       
             {/* List Menu */}
             <Tabs
-              defaultIndex={Menu.findIndex(item => item.link.includes(location))}
+              defaultIndex={TabsData.findIndex(item => item.link.includes(location))}
               variant='line'
               orientation='vertical'
               colorScheme='teal'>
               <TabList w='100%' style={{ alignItems: 'start' }}>
                 
                 {/* Tab buttons list */}
-                {Menu.map((item) => {
+                {TabsData.map((item) => {
                   return (
                     <Link key={item.name} to={item.link}>
                       <Tab style={{ boxShadow: 'none' }}>

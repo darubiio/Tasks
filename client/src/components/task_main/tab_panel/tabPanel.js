@@ -10,17 +10,28 @@ import { useParams } from 'react-router';
 import { Tasksl } from '../task/tasksl';
 
 export const TabPanel = () => {
-  let { tab } = useParams();
-  let params = useQueryParams();
-  const { loading, error, data } = useQuery(Query[tab.toUpperCase()]);
-  const date = new Date().toDateString();
-
+  const { tab } = useParams(),
+    params = useQueryParams(),
+    { loading, error, data } = useQuery(Query[tab.toUpperCase()]),
+    date = new Date().toDateString(),
+    theme = {
+      color: {
+        my_day: '#ECC94B',
+        importants: '#CA3B3B',
+        planned: '#2C5282',
+        all_tasks: '#9B2C2C',
+        completed: '#38B2AC',
+        asigned: '#6B46C1',
+        tasks: '#975A16'
+      }
+    };
+  
   return (
-    <GridItem p={[1, 5]} colSpan={[5, 4]}>
+    <GridItem display={params.get('main') != null ? ['none', 'revert'] : ''} p={[1, 5]} colSpan={[5, 4]}>
       <ScaleFade initialScale={0.9} in>
         <Box h='88vh' overflow='scroll'>
           <BackBtn />
-          <Heading size='lg' color='orange.500'>{params.get('name')}</Heading>
+          <Heading size='lg' color={theme.color[tab]}>{params.get('name')}</Heading>
           {tab === 'my_day' ?
             <Heading as="h6" size="xs">{date}</Heading> : ''}
           {tab !== 'all_tasks' ?

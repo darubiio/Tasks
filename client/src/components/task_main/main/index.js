@@ -1,8 +1,5 @@
-import React from 'react';
-import { MyDay } from '../myDay/md';
+import { Redirect } from 'react-router';
 
 export const Main = () => {
-  return (
-    <MyDay display={['none', 'revert']} />
-  )
+  return <Redirect to="/my_day?name=Mi Día&main" />
 };
