@@ -6,25 +6,30 @@ import { useMutation, useQuery } from '@apollo/client';
 import { CURRENT } from '../../../fetching/query';
 import { ADD_TASK } from '../../../fetching/mutation';
 import { ALL_TASKS } from '../../../fetching/query';
+import { useQueryParams } from '../../../hook/searchParams';
 
 export const AddInput = () => {
 
   let task;
-  const { loading } = useQuery(CURRENT);
-
-  const location = useLocation().pathname
-  const checkMode = () => {
-    return location === '/' ? ['none', 'revert'] : null;
-  }
-
-  const [addT] = useMutation(ADD_TASK, { errorPolicy: 'all' });
-
-  const addTask = async name => {
-    await addT({
-      variables: { name },
-      refetchQueries: [{ query: ALL_TASKS}]
-    })
-  }
+  
+  const { loading } = useQuery(CURRENT),
+    
+    params = useQueryParams(),
+    
+    location = useLocation().pathname,
+    
+    checkMode = () => {
+      return params.get('main') !== null ? ['none', 'revert'] : null;
+    },
+    
+    [addT] = useMutation(ADD_TASK, { errorPolicy: 'all' }),
+    
+    addTask = async name => {
+      await addT({
+        variables: { name },
+        refetchQueries: [{ query: ALL_TASKS }]
+      })
+    };
 
   return (
     loading ? '' :

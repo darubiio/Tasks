@@ -18,6 +18,22 @@ export const LISTS = gql`
 }
 `
 
+export const LIST = gql`
+  query List($_id: ID!) {
+    list(_id: $_id) {
+      _id
+      name
+      tasks {
+        _id
+        name
+        state
+        important
+        myDay      
+      }
+    }
+  }
+`
+
 export const ALL_TASKS = gql`
   query AllTasks {
   tasks {
@@ -55,7 +71,7 @@ export const TASKS = gql`
 
 export const MY_DAY = gql`
   query MyDay {
-    tasksMyDay {
+    my_day {
       _id
       name
       state
@@ -70,7 +86,7 @@ export const MY_DAY = gql`
 
 export const IMPORTANTS = gql`
   query Importants {
-    tasksImportants {
+    importants {
       _id
       name
       myDay
@@ -85,7 +101,7 @@ export const IMPORTANTS = gql`
 
 export const COMPLETED = gql`
   query Completed {
-  tasksCompleted {
+  completed {
     _id
     name
     state
