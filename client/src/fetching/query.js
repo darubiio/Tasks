@@ -8,7 +8,6 @@ export const CURRENT = gql`
     }
   }
 `
-
 export const LISTS = gql`
   query Lists {
   lists {
@@ -70,7 +69,7 @@ export const TASKS = gql`
 
 export const MY_DAY = gql`
   query MyDay {
-    tasksMyDay {
+    my_day {
       _id
       name
       state
@@ -85,7 +84,7 @@ export const MY_DAY = gql`
 
 export const IMPORTANTS = gql`
   query Importants {
-    tasksImportants {
+    importants {
       _id
       name
       myDay
@@ -100,7 +99,7 @@ export const IMPORTANTS = gql`
 
 export const COMPLETED = gql`
   query Completed {
-  tasksCompleted {
+  completed {
     _id
     name
     state

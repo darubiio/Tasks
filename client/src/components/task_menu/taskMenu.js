@@ -5,29 +5,29 @@ import { CURRENT, LISTS } from '../../fetching/query';
 import { Tab, TabList, Tabs } from '@chakra-ui/tabs';
 import { ScaleFade } from '@chakra-ui/transition';
 import { useLocation } from "react-router-dom";
+import { AddList } from './add_list/addList';
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { List } from './list/list';
 import { User } from './user';
-import { AddList } from './add_list/addList';
 
 export const TaskMenu = () => {
 
   const Menu = [
     {
-      name: 'Mi Día', icon: 'bi bi-sun', color: '#ECC94B', link: '/my-day'
+      name: 'Mi Día', icon: 'bi bi-sun', color: '#ECC94B', link: '/my_day?name=Mi Día'
     }, {
-      name: 'Importante', icon: 'bi bi-star', color: '#9B2C2C', link: '/important'
+      name: 'Importante', icon: 'bi bi-star', color: '#9B2C2C', link: '/importants?name=Importante'
     }, {
-      name: 'Planeado', icon: 'bi bi-calendar-event', color: '#2C5282', link: '/planned'
+      name: 'Planeado', icon: 'bi bi-calendar-event', color: '#2C5282', link: '/planned?name=Planeado'
     }, {
-      name: 'Todo', icon: 'bi bi-list', color: '#9B2C2C', link: '/all'
+      name: 'Todo', icon: 'bi bi-list', color: '#9B2C2C', link: '/all_tasks?name=Todo'
     }, {
-      name: 'Completado', icon: 'bi bi-check2-circle', color: '#38B2AC', link: '/completed'
+      name: 'Completado', icon: 'bi bi-check2-circle', color: '#38B2AC', link: '/completed?name=Completado'
     }, {
-      name: 'Asignado', icon: 'bi bi-person', color: '#6B46C1', link: '/asigned'
+      name: 'Asignado', icon: 'bi bi-person', color: '#6B46C1', link: '/asigned?name=Asignado'
     }, {
-      name: 'Tareas', icon: 'bi bi-folder-check', color: '#975A16', link: '/tasks'
+      name: 'Tareas', icon: 'bi bi-folder-check', color: '#975A16', link: '/tasks?name=Tareas'
     }
   ],
 
@@ -65,7 +65,7 @@ export const TaskMenu = () => {
       
             {/* List Menu */}
             <Tabs
-              defaultIndex={Menu.findIndex(item => item.link === location)}
+              defaultIndex={Menu.findIndex(item => item.link.includes(location))}
               variant='line'
               orientation='vertical'
               colorScheme='teal'>
