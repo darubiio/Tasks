@@ -8,9 +8,9 @@ type Query {
   task(_id: ID): Task!
   lists: [List!]
   list(_id: ID): List!
-  tasksImportants: [Task!]
-  tasksCompleted: [Task!]
-  tasksMyDay: [Task!]
+  importants: [Task!]
+  completed: [Task!]
+  my_day: [Task!]
 }
 
 type User {

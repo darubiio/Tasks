@@ -4,7 +4,7 @@ const Query = {
     },
     task: async (_, { _id }, { Task }) => {
         return await Task.findById(_id).populate('list');
-     },
+    },
     
     lists: async (_, __, { List, currentUser }) => {
         return await List.find({ by: currentUser.id }).populate('tasks');
@@ -19,13 +19,13 @@ const Query = {
         }
         return User.findById(currentUser.id);
     },
-    tasksImportants: async (_, __, { Task, currentUser }) => {
+    importants: async (_, __, { Task, currentUser }) => {
         return await Task.find({ by: currentUser.id, important: true }).populate('list');
     },
-    tasksCompleted: async (_, __, { Task, currentUser }) => {
+    completed: async (_, __, { Task, currentUser }) => {
         return await Task.find({ by: currentUser.id, state: true }).populate('list');
     },
-    tasksMyDay: async (_, __, { Task, currentUser }) => {
+    my_day: async (_, __, { Task, currentUser }) => {
         return await Task.find({ by: currentUser.id, myDay: true }).populate('list');
     }
 }
