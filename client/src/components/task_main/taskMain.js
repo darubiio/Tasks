@@ -12,9 +12,9 @@ export const TaskMain = () => {
   return (
     <Switch>
       <PrivateRoute path='/list/:id' children={<List />} />
-      <PrivateRoute path='/:tab' children={<TabPanel />} />
-      <Route path='/signup' component={SignUp} />
-      <Route path='/login' component={Login} />
+      <PrivateRoute path='/tab/:tab' children={<TabPanel />} />
+      <Route path='/signup' children={<SignUp/>} />
+      <Route path='/login' children={<Login/>} />
       <PrivateRoute path='/' children={<Main />} />
     </Switch>
   )

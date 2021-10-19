@@ -6,7 +6,7 @@ import complted from '../../../image/components/complted.svg';
 import important from '../../../image/components/important.svg';
 
 // Tasks without associated list
-export const Tasksl = ({ loading, error, data, state }) => {
+export const Tasksl = ({ loading, error, data, state, onOpen, btnRef, settaskD }) => {
 
   return (
     <Box mt={4}>
@@ -19,7 +19,7 @@ export const Tasksl = ({ loading, error, data, state }) => {
                 <Box>
                   <Text mt={4} ml={2} fontSize='sm'>Tareas</Text>
                   {data[state].map(task =>
-                    <Task id={task._id} key={task._id} completed={task.state} important={task.important}  name={task.name} />
+                    <Task settaskD={settaskD} id={task._id} onOpen={onOpen} btnRef={btnRef} key={task._id} completed={task.state} important={task.important}  name={task.name} />
                   )}
                 </Box> :
                   <Center h='80vh'>

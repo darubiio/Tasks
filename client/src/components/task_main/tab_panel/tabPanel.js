@@ -1,19 +1,28 @@
-import React from 'react'
+import React from 'react';
 import { BackBtn } from '../backbtn';
-import { Taskslists } from '../task/taskslists';
-import { ScaleFade } from '@chakra-ui/transition';
-import { Box, GridItem, Heading } from '@chakra-ui/layout';
-import { useQueryParams } from '../../../hook/searchParams';
-import * as Query from '../../../fetching/query'
-import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router';
 import { Tasksl } from '../task/tasksl';
+import { useParams } from 'react-router';
+import { useQuery } from '@apollo/client';
+import { DrawerC } from '../drawer/drawer';
+import { Taskslists } from '../task/taskslists';
+import * as Query from '../../../fetching/query';
+import { ScaleFade } from '@chakra-ui/transition';
+import { useQueryParams } from '../../../hook/searchParams';
+import { Box, GridItem, Heading, useDisclosure } from '@chakra-ui/react';
 
 export const TabPanel = () => {
-  const { tab } = useParams(),
+  
+  // Current date to display in my_day panel
+  const date = new Date().toDateString(),
+    
+  // Custom hook to get url parameters
+    { tab } = useParams(),
     params = useQueryParams(),
+
+    // Consult depending on the selected parameter
     { loading, error, data } = useQuery(Query[tab.toUpperCase()]),
-    date = new Date().toDateString(),
+    
+    // Change color depending on selected tab
     theme = {
       color: {
         my_day: '#ECC94B',
@@ -24,10 +33,15 @@ export const TabPanel = () => {
         asigned: '#6B46C1',
         tasks: '#975A16'
       }
-    };
+    },
+
+    [taskD, settaskD] = React.useState({}),
+
+    { isOpen, onOpen, onClose } = useDisclosure(),
+    btnRef = React.useRef();
   
   return (
-    <GridItem display={params.get('main') != null ? ['none', 'revert'] : ''} p={[1, 5]} colSpan={[5, 4]}>
+    <GridItem display={params.get('main') !== null ? ['none', 'revert'] : ''} p={[1, 5]} colSpan={[5, 4]}>
       <ScaleFade initialScale={0.9} in>
         <Box h='88vh' overflow='scroll'>
           <BackBtn />
@@ -35,11 +49,12 @@ export const TabPanel = () => {
           {tab === 'my_day' ?
             <Heading as="h6" size="xs">{date}</Heading> : ''}
           {tab !== 'all_tasks' ?
-            <Tasksl state={tab} data={data} error={error} loading={loading} /> :
-            <Taskslists state='tasks' loading={loading} error={error} data={data} />
+            <Tasksl settaskD={settaskD} onOpen={onOpen} btnRef={btnRef} state={tab} data={data} error={error} loading={loading} /> :
+            <Taskslists settaskD={settaskD}  onOpen={onOpen} btnRef={btnRef} state='tasks' loading={loading} error={error} data={data} />
           }
         </Box>
       </ScaleFade>
+      <DrawerC taskD={taskD} onOpen={onOpen} isOpen={isOpen} onClose={onClose} />
     </GridItem>
   )
 };
