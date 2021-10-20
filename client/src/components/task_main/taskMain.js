@@ -9,6 +9,7 @@ import { SignUp } from '../../components/forms/registro';
 import { TabPanel } from './tab_panel/tabPanel';
 
 export const TaskMain = () => {
+
   return (
     <Switch>
       <PrivateRoute path='/list/:id' children={<List />} />
