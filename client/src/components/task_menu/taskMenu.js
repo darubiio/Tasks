@@ -15,9 +15,11 @@ import { useQueryParams } from '../../hook/searchParams';
 
 export const TaskMenu = () => {
 
-    // Hide menu if we are not on the main page in mobile version
   const location = useLocation().pathname,
+        
+    // Custom hook to get url parameters
     params = useQueryParams(),
+    // Hide menu in mobile version
     checkMode = () => {
       return params.get('main') === null ? ['none', 'revert'] : null;
     },
@@ -29,7 +31,7 @@ export const TaskMenu = () => {
   return (
     current.error ? null :
       current.loading ? '' :
-        <GridItem display={checkMode} rowSpan={2} colSpan={['5', '1']} pt={5}>
+        <GridItem display={checkMode} rowSpan={2} pt={5} colSpan={['5', '1']}>
           <ScaleFade initialScale={0.9} in>
       
             {/* Avatar and user */}
@@ -49,6 +51,7 @@ export const TaskMenu = () => {
       
             {/* List Menu */}
             <Tabs
+              h='78.8vh'
               defaultIndex={TabsData.findIndex(item => item.link.includes(location))}
               variant='line'
               orientation='vertical'
