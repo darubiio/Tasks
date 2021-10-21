@@ -2,19 +2,15 @@ import React from 'react';
 import {
   Box,
   Grid,
+  Drawer,
   Button,
   Divider,
-  ButtonGroup,
-  Drawer,
-  CheckIcon,
-  IconButton,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
   Editable,
-  EditablePreview,
+  DrawerBody,
   EditableInput,
+  DrawerContent,
+  DrawerOverlay,
+  EditablePreview,
   useEditableControls
 } from "@chakra-ui/react";
 
@@ -32,7 +28,6 @@ export const DrawerC = ({ isOpen, onClose, btnRef, taskD }) => {
       <i style={{color:'#38B2AC'}} className="bi bi-pencil" {...getEditButtonProps()} />
     )
   };
-   
 
   return (
     <Drawer
@@ -40,8 +35,9 @@ export const DrawerC = ({ isOpen, onClose, btnRef, taskD }) => {
       onClose={onClose}
       placement="right"
       finalFocusRef={btnRef}
+      borderRadius='xl'
     >
-      <DrawerOverlay />
+      <DrawerOverlay/>
       <DrawerContent>
         <DrawerBody >
           <Box color='blackAlpha.800' pt={10}>
